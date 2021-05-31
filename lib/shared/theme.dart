@@ -1,8 +1,9 @@
 part of 'shared.dart';
 
-Color primaryColor = "F27121".toColor();
-Color midColor = "E94057".toColor();
-Color secondaryColor = "8A2387".toColor();
+Color primaryColor = "#F27121".toColor();
+Color lightPrimaryColor = "#ffd8c2".toColor();
+Color midColor = "#E94057".toColor();
+Color secondaryColor = "#8A2387".toColor();
 
 
 // --------- Header
