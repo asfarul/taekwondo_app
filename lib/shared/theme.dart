@@ -4,6 +4,9 @@ Color primaryColor = "#F27121".toColor();
 Color lightPrimaryColor = "#ffd8c2".toColor();
 Color midColor = "#E94057".toColor();
 Color secondaryColor = "#8A2387".toColor();
+Color lightGrey = '#D3D3D3'.toColor();
+Color grey = '#B0B3B8'.toColor();
+Color darkGrey = '#242526'.toColor();
 
 
 // --------- Header
