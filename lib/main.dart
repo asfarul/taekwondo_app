@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:taekwondo_app/providers/providers.dart';
-import 'package:taekwondo_app/screens/screens.dart';
+import 'package:taekwondo_app/ui/screens/screens.dart';
 
 void main() async {
   await GetStorage.init();
