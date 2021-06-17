@@ -5,7 +5,7 @@ class GradientRoundedButton extends StatelessWidget {
   final Widget? child;
   final Gradient? gradient;
   final double height;
-  final Function? onPressed;
+  final VoidCallback? onPressed;
 
   const GradientRoundedButton({
     Key? key,
@@ -38,8 +38,8 @@ class GradientRoundedButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(80),
-            onTap: () {},
+            borderRadius: BorderRadius.circular(80),
+            onTap: onPressed,
             child: Center(
               child: child,
             )),
