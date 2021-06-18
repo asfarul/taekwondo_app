@@ -3,14 +3,12 @@ import 'package:taekwondo_app/shared/shared.dart';
 
 class GradientRoundedButton extends StatelessWidget {
   final Widget? child;
-  final Gradient? gradient;
   final double height;
   final VoidCallback? onPressed;
 
   const GradientRoundedButton({
     Key? key,
     @required this.child,
-    this.gradient,
     this.height = 50.0,
     this.onPressed,
   }) : super(key: key);
@@ -19,6 +17,7 @@ class GradientRoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
       width: size.width * 0.8,
       height: height,
       decoration: BoxDecoration(

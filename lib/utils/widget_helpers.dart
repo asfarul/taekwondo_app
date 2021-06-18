@@ -11,20 +11,24 @@ class WidgetHelpers {
     Get.snackbar(
       title,
       message,
+      margin: EdgeInsets.all(16),
       duration: Duration(seconds: 3),
+      overlayBlur: 4,
+      snackPosition: SnackPosition.BOTTOM,
+      colorText: Colors.white,
       icon: snackbarType == SnackbarType.error
-          ? Icon(Icons.error)
+          ? Icon(Icons.error, color: Colors.white,)
           : snackbarType == SnackbarType.info
-              ? Icon(Icons.info)
+              ? Icon(Icons.info, color: Colors.white)
               : snackbarType == SnackbarType.warning
-                  ? Icon(Icons.warning)
-                  : Icon(Icons.check),
+                  ? Icon(Icons.warning, color: Colors.white)
+                  : Icon(Icons.check, color: Colors.white),
       backgroundColor: snackbarType == SnackbarType.error
-          ? Colors.red
+          ? Colors.red.withOpacity(0.8)
           : snackbarType == SnackbarType.info
               ? Colors.blue
               : snackbarType == SnackbarType.warning
-                  ? Colors.orange
+                  ? Colors.orange.withOpacity(0.6)
                   : Colors.green,
       barBlur: 0.3,
     );

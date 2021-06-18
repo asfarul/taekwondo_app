@@ -3,7 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:taekwondo_app/components/gradient_rounded_button.dart';
+import 'package:taekwondo_app/ui/components/rounded_input_field.dart';
+import 'package:taekwondo_app/ui/components/rounded_password_field.dart';
+import 'package:taekwondo_app/utils/widget_helpers.dart';
+import '../components/gradient_rounded_button.dart';
 import 'package:taekwondo_app/shared/shared.dart';
 import 'package:get/get.dart';
 
