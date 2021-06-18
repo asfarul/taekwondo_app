@@ -38,13 +38,15 @@ class StartScreen extends StatelessWidget {
                         style: normalLight1,
                       ),
                       onPressed: () {
-                        print('tes');
                         Get.to(() => LoginScreen());
                       },
                     ),
                     TextButton(
                       onPressed: () {},
-                      child: Text('Register', style: normalDark1.copyWith(color: primaryColor),),
+                      child: Text(
+                        'Register',
+                        style: normalDark1.copyWith(color: primaryColor),
+                      ),
                     ),
                   ],
                 ),

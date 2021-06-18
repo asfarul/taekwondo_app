@@ -1,0 +1,52 @@
+// GENERATED CODE - READ DOCUMENTATION BEFORE CONFIGURATION
+[
+	// **************************************************************************
+	// Json To Dart Model Configuration
+	// **************************************************************************
+	//
+	// Useful links to work with this file:
+	// About jsonc: https://github.com/onury/jsonc
+	// Try jsonc: https://komkom.github.io
+	{
+		// Generates Freezed classes.
+		// If it's true, everything below will be ignored because Freezed supports them all.
+		"freezed": false,
+		// Enable Json Serializable builder.
+		"serializable": false,
+		// Enable Equatable support.
+		// If it's true, equality operator and immutability will be ignored.
+		"equatable": false,
+		// Generate immutable classes.
+		"immutable": false,
+		// Add toString method to improve the debugging experience.
+		"toString": false,
+		// Add copyWith method (Recommended with immutable classes).
+		"copyWith": false,
+		// Add equality operator.
+		"equality": false,
+		// Indicate that a variable can have the value null.
+		"nullSafety": true,
+		// Default target directory.
+		"targetDirectory": "/lib/models",
+		// Activate as primary global configuration.
+		"primaryConfiguration": false,
+		// Disable ask for confirmation to start the conversion.
+		"fastMode": false
+	}
+	// Add your json objects here separated by commas.
+	// Configuration item must be first in the list.
+	// Note that you add class names to each object with key "__className":
+	// And avoid duplicate class names in this list for best results.
+	// FOR EXAMPLE:
+	/*
+
+	{
+		"__className": "UserPost", // <- The base class name of the object.
+		"userId": 1,
+		"id": 1, // To mark as required value, change "id" to "d@id".
+		"title": "Json To Dart Model", // To mark as a default value, change "title" to "d@title".
+		"body": "Json to Dart advanced..."
+	}
+
+	*/
+]

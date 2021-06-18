@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 enum SnackbarType { error, warning, success, info }
 
 class WidgetHelpers {
-
   // Snackbar
   static snackbar(BuildContext context, SnackbarType snackbarType,
       {String title = "", String message = ""}) {
@@ -17,7 +16,10 @@ class WidgetHelpers {
       snackPosition: SnackPosition.BOTTOM,
       colorText: Colors.white,
       icon: snackbarType == SnackbarType.error
-          ? Icon(Icons.error, color: Colors.white,)
+          ? Icon(
+              Icons.error,
+              color: Colors.white,
+            )
           : snackbarType == SnackbarType.info
               ? Icon(Icons.info, color: Colors.white)
               : snackbarType == SnackbarType.warning

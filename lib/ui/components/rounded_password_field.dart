@@ -34,7 +34,8 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             color: primaryColor,
           ),
           suffixIcon: IconButton(
-            icon: !_obscure ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+            icon:
+                !_obscure ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
             onPressed: () {
               _obscure = !_obscure;
               setState(() {});

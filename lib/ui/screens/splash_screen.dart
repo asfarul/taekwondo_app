@@ -31,9 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(child: Center(
-          child: Text('NAMA APLIKASI'),
-        ),),
+        child: Container(
+          child: Center(
+            child: Text('NAMA APLIKASI'),
+          ),
+        ),
       ),
     );
   }

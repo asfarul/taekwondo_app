@@ -19,7 +19,7 @@ class BaseServices {
   Future<dynamic> request(
     BuildContext context,
     String url,
-    RequestType type, {
+    RequestType requestType, {
     FormData? data,
     dynamic param,
     bool? useToken,
@@ -34,14 +34,21 @@ class BaseServices {
 
     // Switch case untuk request dio
     try {
-      switch (type) {
+      switch (requestType) {
         case RequestType.POST:
-          response = await _dio.post(url,
-              data: data, options: _headersOption, queryParameters: param);
+          response = await _dio.post(
+            url,
+            data: data,
+            options: _headersOption,
+            queryParameters: param,
+          );
           break;
         case RequestType.GET:
-          response = await _dio.get(url,
-              options: _headersOption, queryParameters: param);
+          response = await _dio.get(
+            url,
+            options: _headersOption,
+            queryParameters: param,
+          );
           break;
         case RequestType.DELETE:
           response = await _dio.delete(url, options: _headersOption);
@@ -51,11 +58,11 @@ class BaseServices {
     }
 
     //* Handling error and status code
-    response = json.decode(response.toString());
-    print(response);
+    var result = json.decode(response.toString());
+    print(result);
 
     //* if 401 then return to login
-    if (response["code"] > 201) {
+    if (response.statusCode > 200) {
       // DialogUtils.instance.showInfo(
       //     context,
       //     "Session Expired, silahkan masukkan api key yang valid",
@@ -65,11 +72,10 @@ class BaseServices {
       //       context, RouterGenerator.routeHome, (route) => false);
       // });
       WidgetHelpers.snackbar(context, SnackbarType.error,
-          title: "Error!", message: response['message']);
-      print(response['message']);
+          title: "Error!", message: result['data']['message'] ?? '-');
       return null;
     }
 
-    return response;
+    return result;
   }
 }
