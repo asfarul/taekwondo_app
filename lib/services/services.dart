@@ -12,3 +12,4 @@ import 'package:taekwondo_app/utils/widget_helpers.dart';
 part 'base_services.dart';
 part 'config_services.dart';
 part 'auth_services.dart';
+part 'logging_interceptor.dart';

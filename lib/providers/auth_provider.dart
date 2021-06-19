@@ -1,7 +1,7 @@
 part of 'providers.dart';
 
 class AuthProvider with ChangeNotifier {
-  final _credentials = GetStorage(myCred);
+  final _credentials = GetStorage(myCredPref);
   bool _isLoading = false;
   AuthServices authServices = AuthServices();
 

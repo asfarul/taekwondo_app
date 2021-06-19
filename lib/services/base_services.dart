@@ -7,9 +7,12 @@ enum RequestType {
 }
 
 class BaseServices {
-  Dio _dio = new Dio();
+  Dio _dio = Dio(BaseOptions(
+    receiveTimeout: 30000,
+    connectTimeout: 30000,
+  ));
   Options? _headersOption;
-  final _credentials = GetStorage(myCred);
+  final _credentials = GetStorage(myCredPref);
 
   void _getToken() {
     var _token = _credentials.read(authKey);
@@ -25,7 +28,7 @@ class BaseServices {
     bool? useToken,
   }) async {
     var response;
-
+    if (_dio.interceptors.isEmpty) _dio.interceptors.add(LoggingInterceptor());
     if (useToken != null && useToken) {
       _getToken();
     } else {
@@ -53,29 +56,53 @@ class BaseServices {
         case RequestType.DELETE:
           response = await _dio.delete(url, options: _headersOption);
       }
+
+      //* Handling error and status code
+      var result = json.decode(response.toString());
+      print(result);
+
+      //* if 401 then return to login
+      if (response.statusCode > 200) {
+        WidgetHelpers.snackbar(context, SnackbarType.error,
+            title: "Error!", message: result['data']['message'] ?? '-');
+        return null;
+      }
+
+      return result;
     } on DioError catch (e) {
-      response = e.response;
-    }
-
-    //* Handling error and status code
-    var result = json.decode(response.toString());
-    print(result);
-
-    //* if 401 then return to login
-    if (response.statusCode > 200) {
-      // DialogUtils.instance.showInfo(
-      //     context,
-      //     "Session Expired, silahkan masukkan api key yang valid",
-      //     Icons.error,
-      //     "OK", onClick: () async {
-      //   Navigator.pushNamedAndRemoveUntil(
-      //       context, RouterGenerator.routeHome, (route) => false);
-      // });
       WidgetHelpers.snackbar(context, SnackbarType.error,
-          title: "Error!", message: result['data']['message'] ?? '-');
+          title: "Gagal!", message: errorMessage(e));
       return null;
     }
+  }
 
-    return result;
+  String errorMessage(DioError dioError) {
+    String errorDescription = "";
+    switch (dioError.type) {
+      case DioErrorType.cancel:
+        errorDescription = cancelMessage;
+        break;
+      case DioErrorType.connectTimeout:
+        errorDescription = connectTimeoutMessage;
+        break;
+      case DioErrorType.other:
+        errorDescription = defaultMessage;
+        break;
+      case DioErrorType.receiveTimeout:
+        errorDescription = receiveTimeoutMessage;
+        break;
+      case DioErrorType.response:
+        var response = json.decode(dioError.response.toString());
+        errorDescription = '${response['data']['message']}';
+        break;
+      case DioErrorType.sendTimeout:
+        errorDescription = sendTimeoutMessage;
+        break;
+      default:
+        errorDescription = defaultMessage;
+        break;
+    }
+
+    return errorDescription;
   }
 }

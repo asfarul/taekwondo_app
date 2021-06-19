@@ -8,7 +8,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final _credentials = GetStorage(myCred);
+  final _credentials = GetStorage(myCredPref);
 
   void credentialsCheck() {
     Timer(Duration(seconds: 2), () {
