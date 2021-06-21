@@ -59,7 +59,7 @@ class BaseServices {
 
       //* Handling error and status code
       var result = json.decode(response.toString());
-      print(result);
+      // print(result);
 
       //* if 401 then return to login
       if (response.statusCode > 200) {

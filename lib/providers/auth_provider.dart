@@ -9,6 +9,7 @@ class AuthProvider with ChangeNotifier {
 
   void login(BuildContext context, String email, String password) async {
     _isLoading = true;
+    notifyListeners();
     dio.FormData data = dio.FormData.fromMap({
       'email': email,
       'password': password,

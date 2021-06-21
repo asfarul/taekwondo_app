@@ -17,6 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.offAll(HomeScreen());
       } else {
         Get.offAll(StartScreen());
+        // Navigator.of(context)
+        //     .push(MaterialPageRoute(builder: (context) => StartScreen()));
       }
     });
   }

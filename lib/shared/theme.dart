@@ -2,15 +2,17 @@ part of 'shared.dart';
 
 Color primaryColor = "#F27121".toColor();
 Color lightPrimaryColor = "#ffd8c2".toColor();
+Color fieldColor = "#ffefe6".toColor();
 Color midColor = "#E94057".toColor();
-Color secondaryColor = "#8A2387".toColor();
+Color secondaryColor = "#ff006f".toColor();
 Color lightGrey = '#D3D3D3'.toColor();
 Color grey = '#B0B3B8'.toColor();
 Color darkGrey = '#242526'.toColor();
+Color bgColor = "#f2f3f7".toColor();
 
 // --------- Header
 TextStyle headerDark = GoogleFonts.poppins(
-    color: Colors.blueGrey[900], fontWeight: FontWeight.w500, fontSize: 23);
+    color: darkGrey, fontWeight: FontWeight.w600, fontSize: 23);
 TextStyle headerLight = GoogleFonts.poppins(
     color: Colors.white, fontWeight: FontWeight.w500, fontSize: 23);
 TextStyle subheaderDark =

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         title: 'SITAEK App',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.orange,
         ),
         home: SplashScreen(),
       ),

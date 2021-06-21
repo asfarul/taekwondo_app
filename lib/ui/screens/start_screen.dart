@@ -1,8 +1,6 @@
 part of 'screens.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,14 +20,13 @@ class StartScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(20),
                 child: Text(
                   'SITAEK',
                   style: headerDark.copyWith(fontSize: 30),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: size.height * 0.085),
+                margin: EdgeInsets.only(bottom: size.height * 0.045),
                 child: Column(
                   children: [
                     GradientRoundedButton(
@@ -39,6 +36,9 @@ class StartScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         Get.to(() => LoginScreen());
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //   builder: (context) => LoginScreen(),
+                        // ));
                       },
                     ),
                     TextButton(

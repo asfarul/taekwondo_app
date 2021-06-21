@@ -17,7 +17,7 @@ class GradientRoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: 8),
       width: size.width * 0.8,
       height: height,
       decoration: BoxDecoration(
@@ -25,13 +25,6 @@ class GradientRoundedButton extends StatelessWidget {
             colors: [primaryColor, midColor, secondaryColor],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            offset: Offset(0.0, 1.0),
-            blurRadius: 3,
-          ),
-        ],
         borderRadius: BorderRadius.circular(80),
       ),
       child: Material(
