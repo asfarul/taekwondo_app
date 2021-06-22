@@ -2,9 +2,11 @@ part of 'providers.dart';
 
 class AuthProvider with ChangeNotifier {
   final _credentials = GetStorage(myCredPref);
+  File? _pictureFile;
   bool _isLoading = false;
   AuthServices authServices = AuthServices();
 
+  File? get pictureFile => _pictureFile;
   bool get isLoading => _isLoading;
 
   void login(BuildContext context, String email, String password) async {
@@ -35,6 +37,16 @@ class AuthProvider with ChangeNotifier {
   void logout() {
     _credentials.erase();
     Get.offAll(StartScreen());
+  }
+
+  void pickImage(BuildContext context) async {
+    final picker = ImagePicker();
+    var pickedImage = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      _pictureFile = File(pickedImage.path);
+      notifyListeners();
+    }
   }
 
   String? errorCheck(String email, String password) {

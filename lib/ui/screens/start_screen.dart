@@ -42,7 +42,9 @@ class StartScreen extends StatelessWidget {
                       },
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => RegisterScreen());
+                      },
                       child: Text(
                         'Register',
                         style: normalDark1.copyWith(color: primaryColor),

@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:taekwondo_app/services/services.dart';
 import 'package:taekwondo_app/ui/screens/screens.dart';
 import 'package:taekwondo_app/shared/shared.dart';
