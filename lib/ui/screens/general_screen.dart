@@ -5,17 +5,30 @@ class GeneralScreen extends StatelessWidget {
   final String subtitle;
   final Widget? child;
   final VoidCallback? onBackButtonPressed;
+  final Widget? bottomNavigationBar;
   const GeneralScreen({
     this.title = '',
     this.subtitle = '',
     this.onBackButtonPressed,
     this.child,
+    this.bottomNavigationBar,
   });
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     print('rebuild general...');
     return Scaffold(
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        padding: EdgeInsets.symmetric(vertical: defaultMargin),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            bottomNavigationBar ?? SizedBox(),
+          ],
+        ),
+      ),
       body: Stack(
         children: [
           Container(
