@@ -5,10 +5,22 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _namaController = TextEditingController();
-    var _emailController = TextEditingController();
-    var _noHpController = TextEditingController();
-    var _alamatController = TextEditingController();
+    var authProvider = Provider.of<AuthProvider>(context, listen: false);
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+    TextEditingController _namaController = TextEditingController();
+    TextEditingController _alamatController = TextEditingController();
+    TextEditingController _noHPController = TextEditingController();
+    String _tglLahir;
+    String _jenisKelamin;
+
+    void onSelectDate(String val) {
+      _tglLahir = val;
+    }
+
+    void onSelectSex(String val) {
+      _jenisKelamin = val;
+    }
 
     return GeneralScreen(
       title: 'Register',
@@ -18,12 +30,10 @@ class RegisterScreen extends StatelessWidget {
       },
       bottomNavigationBar: GradientRoundedButton(
         child: Text(
-          'Berikutnya',
+          'Daftar',
           style: normalLight1,
         ),
-        onPressed: () {
-          FocusScope.of(context).unfocus();
-        },
+        onPressed: () {},
       ),
       child: SingleChildScrollView(
         child: Container(
@@ -80,9 +90,11 @@ class RegisterScreen extends StatelessWidget {
                 icon: Icons.mail,
                 textInputType: TextInputType.emailAddress,
               ),
+              RoundedDropdownInput(onSelectSex, jenisKelaminValues),
+              RoundedDateInput(onSelectDate),
               RoundedInputField(
                 hintText: "Nomor Handphone Anda",
-                controller: _noHpController,
+                controller: _noHPController,
                 icon: Icons.phone,
                 textInputType: TextInputType.phone,
               ),
@@ -90,6 +102,9 @@ class RegisterScreen extends StatelessWidget {
                 hintText: "Alamat Lengkap Anda",
                 controller: _alamatController,
                 icon: Icons.location_on,
+              ),
+              RoundedPasswordField(
+                controller: _passwordController,
               ),
               SizedBox(height: defaultMargin * 2),
             ],

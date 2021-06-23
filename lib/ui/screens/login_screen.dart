@@ -5,9 +5,11 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _emailController = TextEditingController();
-    var _passwordController = TextEditingController();
     print('rebuild login screen...');
+    var authProvider = Provider.of<AuthProvider>(context, listen: false);
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+
     return GeneralScreen(
       title: 'Login',
       subtitle: 'Login untuk melanjutkan',
@@ -50,9 +52,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
-                      Provider.of<AuthProvider>(context, listen: false).login(
-                          context,
-                          _emailController.text,
+                      authProvider.login(context, _emailController.text,
                           _passwordController.text);
                     },
                   );

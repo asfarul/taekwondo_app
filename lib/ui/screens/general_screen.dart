@@ -16,7 +16,6 @@ class GeneralScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     print('rebuild general...');
     return Scaffold(
       bottomNavigationBar: Container(

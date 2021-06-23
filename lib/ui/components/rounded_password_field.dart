@@ -30,6 +30,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
         style: normalDark1,
         decoration: InputDecoration(
           hintText: "Password",
+          hintStyle: normalDark1.copyWith(color: Colors.grey),
           icon: Icon(
             Icons.lock,
             color: primaryColor,

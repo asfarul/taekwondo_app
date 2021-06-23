@@ -2,6 +2,7 @@ part of 'providers.dart';
 
 class AuthProvider with ChangeNotifier {
   final _credentials = GetStorage(myCredPref);
+
   File? _pictureFile;
   bool _isLoading = false;
   AuthServices authServices = AuthServices();
@@ -12,10 +13,6 @@ class AuthProvider with ChangeNotifier {
   void login(BuildContext context, String email, String password) async {
     _isLoading = true;
     notifyListeners();
-    dio.FormData data = dio.FormData.fromMap({
-      'email': email,
-      'password': password,
-    });
 
     var errorMessage = errorCheck(email, password);
 
@@ -25,6 +22,12 @@ class AuthProvider with ChangeNotifier {
       _isLoading = false;
       return;
     }
+
+    dio.FormData data = dio.FormData.fromMap({
+      'email': email,
+      'password': password,
+    });
+
     var response = await authServices.login(context, data);
     if (response?.data != null) {
       print('success');

@@ -17,3 +17,5 @@ String sendTimeoutMessage =
     'Melewati batas waktu untuk mengirim data ke server, silahkan coba lagi nanti';
 String defaultMessage =
     'Terjadi kesalahan dalam melakukan request, silahkan coba lagi nanti';
+
+final List<String> jenisKelaminValues = ['LAKI-LAKI', 'PEREMPUAN'];
