@@ -12,8 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void credentialsCheck() {
     Timer(Duration(seconds: 2), () {
-      _credentials.writeIfNull(authKey, false);
-      if (_credentials.read(authKey)) {
+      if (_credentials.read(authKey) != null) {
         Get.offAll(HomeScreen());
       } else {
         Get.offAll(StartScreen());

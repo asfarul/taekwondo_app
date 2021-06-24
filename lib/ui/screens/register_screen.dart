@@ -11,8 +11,8 @@ class RegisterScreen extends StatelessWidget {
     TextEditingController _namaController = TextEditingController();
     TextEditingController _alamatController = TextEditingController();
     TextEditingController _noHPController = TextEditingController();
-    String _tglLahir;
-    String _jenisKelamin;
+    String? _tglLahir;
+    String? _jenisKelamin;
 
     void onSelectDate(String val) {
       _tglLahir = val;
@@ -33,7 +33,16 @@ class RegisterScreen extends StatelessWidget {
           'Daftar',
           style: normalLight1,
         ),
-        onPressed: () {},
+        onPressed: () {
+          authProvider.register(context,
+              email: _emailController.text,
+              nama: _namaController.text,
+              jk: _jenisKelamin,
+              tglLahir: _tglLahir,
+              noHP: _noHPController.text,
+              alamat: _alamatController.text,
+              password: _passwordController.text);
+        },
       ),
       child: SingleChildScrollView(
         child: Container(

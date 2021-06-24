@@ -15,12 +15,17 @@ class _RoundedDateInputState extends State<RoundedDateInput> {
   TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return RoundedInputField(
-      hintText: 'Tanggal Lahir Anda',
-      icon: Icons.calendar_today,
-      controller: _controller,
-      isEnable: false,
-      onTap: _showDatePicker,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: RoundedInputField(
+        hintText: 'Tanggal Lahir Anda',
+        icon: Icons.calendar_today,
+        controller: _controller,
+        isEnable: false,
+        onTap: _showDatePicker,
+      ),
     );
   }
 

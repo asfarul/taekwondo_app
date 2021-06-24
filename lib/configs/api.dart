@@ -5,4 +5,5 @@ class Api {
   static final version = 'api/';
 
   static final login = base + version + "login";
+  static final register = base + version + "register";
 }

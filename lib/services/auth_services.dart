@@ -8,4 +8,13 @@ class AuthServices extends BaseServices {
       return Login.fromJson(response);
     }
   }
+
+  Future<Register?> register(BuildContext context, FormData data) async {
+    var response = await request(context, Api.register, RequestType.POST,
+        data: data, useToken: false);
+
+    if (response != null) {
+      return Register.fromJson(response);
+    }
+  }
 }
