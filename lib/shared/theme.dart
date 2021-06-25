@@ -8,7 +8,7 @@ Color secondaryColor = "#ff006f".toColor();
 Color lightGrey = '#D3D3D3'.toColor();
 Color grey = '#B0B3B8'.toColor();
 Color darkGrey = '#242526'.toColor();
-Color bgColor = "#f2f3f7".toColor();
+Color bgColor = "#f1f1f1".toColor();
 
 // --------- Header
 TextStyle headerDark = GoogleFonts.poppins(
