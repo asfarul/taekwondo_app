@@ -23,12 +23,12 @@ TextStyle subheaderLight =
 // --------- SMALL
 // Regular Dark
 TextStyle smallDark1 =
-    GoogleFonts.poppins(color: Colors.blueGrey[900], fontSize: 12);
+    GoogleFonts.poppins(color: Colors.blueGrey[900], fontSize: 10);
 // Regular Light
-TextStyle smallLight1 = GoogleFonts.poppins(color: Colors.white, fontSize: 12);
+TextStyle smallLight1 = GoogleFonts.poppins(color: Colors.white, fontSize: 10);
 // Regular Grey
 TextStyle smallGrey1 =
-    GoogleFonts.poppins(color: Colors.grey[300], fontSize: 12);
+    GoogleFonts.poppins(color: Colors.grey[300], fontSize: 10);
 
 // Bold Dark
 TextStyle smallDark2 = GoogleFonts.poppins(
