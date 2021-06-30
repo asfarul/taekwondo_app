@@ -22,3 +22,4 @@ part 'start_screen.dart';
 part 'login_screen.dart';
 part 'register_screen.dart';
 part 'general_screen.dart';
+part 'news_list_screen.dart';

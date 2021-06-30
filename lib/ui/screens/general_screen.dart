@@ -18,16 +18,18 @@ class GeneralScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print('rebuild general...');
     return Scaffold(
-      bottomNavigationBar: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: defaultMargin),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            bottomNavigationBar ?? SizedBox(),
-          ],
-        ),
-      ),
+      bottomNavigationBar: bottomNavigationBar == null
+          ? null
+          : Container(
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(vertical: defaultMargin),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  bottomNavigationBar ?? SizedBox(),
+                ],
+              ),
+            ),
       body: Stack(
         children: [
           Container(
@@ -66,7 +68,6 @@ class GeneralScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: defaultMargin),
                     child ?? SizedBox(),
                   ],
                 ),

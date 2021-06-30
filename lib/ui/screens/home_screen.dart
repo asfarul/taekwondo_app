@@ -59,9 +59,14 @@ class HomeScreen extends StatelessWidget {
                             'Berita Terbaru',
                             style: largeDark2,
                           ),
-                          Text(
-                            'Lihat Semua',
-                            style: normalDark1,
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => NewsListScreen());
+                            },
+                            child: Text(
+                              'Lihat Semua',
+                              style: normalDark1,
+                            ),
                           )
                         ],
                       ),
