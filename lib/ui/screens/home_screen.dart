@@ -35,13 +35,18 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16.0),
-                        child: Image.network(
-                          'https://randomuser.me/api/portraits/women/72.jpg',
-                          height: 64.0,
-                          width: 64.0,
-                          fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => ProfileScreen());
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0),
+                          child: Image.network(
+                            'https://randomuser.me/api/portraits/women/72.jpg',
+                            height: 64.0,
+                            width: 64.0,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       )
                     ],
@@ -78,66 +83,72 @@ class HomeScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemCount: 3,
                         itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.all(10.0),
-                            width: 310.0,
-                            child: Stack(
-                              alignment: Alignment.topCenter,
-                              children: <Widget>[
-                                Positioned(
-                                  bottom: 0.0,
-                                  child: Container(
-                                    height: 150.0,
-                                    width: 310.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Pengumuman Hasil Tournament',
-                                            style: normalDark2,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const SizedBox(height: 2.0),
-                                          Text('tes2', style: smallDark1),
-                                          const SizedBox(height: 2.0),
-                                        ],
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(() => NewsDetailScreen());
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(10.0),
+                              width: 310.0,
+                              child: Stack(
+                                alignment: Alignment.topCenter,
+                                children: <Widget>[
+                                  Positioned(
+                                    bottom: 0.0,
+                                    child: Container(
+                                      height: 150.0,
+                                      width: 310.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              'Pengumuman Hasil Tournament',
+                                              style: normalDark2,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(height: 2.0),
+                                            Text('tes2', style: smallDark1),
+                                            const SizedBox(height: 2.0),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        offset: Offset(0.0, 2.0),
-                                        blurRadius: 6.0,
-                                      )
-                                    ],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    child: Image.network(
-                                      'https://picsum.photos/200/300',
-                                      height: 180,
-                                      width: 290,
-                                      fit: BoxFit.cover,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          offset: Offset(0.0, 2.0),
+                                          blurRadius: 6.0,
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                )
-                              ],
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      child: Image.network(
+                                        'https://picsum.photos/200/300',
+                                        height: 180,
+                                        width: 290,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },

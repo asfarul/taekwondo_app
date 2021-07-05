@@ -43,45 +43,50 @@ class NewsListScreen extends StatelessWidget {
   }
 
   Widget itemCard(int index) {
-    return Container(
-        margin: EdgeInsets.symmetric(
-          vertical: 10,
-        ),
-        padding: EdgeInsets.symmetric(vertical: 3),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Judul Berita Lorem Ipsum Dolor Sit Amet',
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: normalDark2.copyWith(color: Colors.blueGrey),
-                  ),
-                  Text(
-                    'Senin, 26 Februari 2021',
-                    style: smallDark1,
-                  )
-                ],
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => NewsDetailScreen());
+      },
+      child: Container(
+          margin: EdgeInsets.symmetric(
+            vertical: 10,
+          ),
+          padding: EdgeInsets.symmetric(vertical: 3),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Judul Berita Lorem Ipsum Dolor Sit Amet',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: normalDark2.copyWith(color: Colors.blueGrey),
+                    ),
+                    Text(
+                      'Senin, 26 Februari 2021',
+                      style: smallDark1,
+                    )
+                  ],
+                ),
               ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
-              child: Image.network(
-                'https://randomuser.me/api/portraits/women/72.jpg',
-                height: 80.0,
-                width: 80.0,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Image.network(
+                  'https://randomuser.me/api/portraits/women/72.jpg',
+                  height: 80.0,
+                  width: 80.0,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 
   Widget firstItemCard(Size size, int index) {
