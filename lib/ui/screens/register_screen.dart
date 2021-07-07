@@ -115,7 +115,7 @@ class RegisterScreen extends StatelessWidget {
               RoundedPasswordField(
                 controller: _passwordController,
               ),
-              SizedBox(height: defaultMargin * 2),
+              SizedBox(height: defaultMargin * 3),
             ],
           ),
         ),

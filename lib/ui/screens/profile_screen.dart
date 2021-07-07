@@ -5,7 +5,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     Widget _header = Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -76,28 +75,33 @@ class ProfileScreen extends StatelessWidget {
                 EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
             child: Column(
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding: EdgeInsets.symmetric(
-                      vertical: 30, horizontal: defaultMargin),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.edit,
-                        color: grey,
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        'Edit Profile',
-                        style: normalDark1,
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => ProfileEditScreen());
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 30, horizontal: defaultMargin),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.edit,
+                          color: grey,
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Text(
+                          'Edit Profile',
+                          style: normalDark1,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 GestureDetector(
