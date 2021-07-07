@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -23,3 +24,4 @@ part 'general_screen.dart';
 part 'news_list_screen.dart';
 part 'news_detail_screen.dart';
 part 'profile_screen.dart';
+part 'profile_edit_screen.dart';
