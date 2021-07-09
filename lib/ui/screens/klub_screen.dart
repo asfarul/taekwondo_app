@@ -9,7 +9,7 @@ class KlubScreen extends StatelessWidget {
 
     Widget _header() => Container(
           width: size.width * 1,
-          height: 360,
+          height: 350,
           child: Stack(
             children: [
               Container(
@@ -96,7 +96,7 @@ class KlubScreen extends StatelessWidget {
                 right: defaultMargin,
                 left: defaultMargin,
                 child: Container(
-                  height: 130,
+                  height: 110,
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -119,7 +119,7 @@ class KlubScreen extends StatelessWidget {
                       Text(
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget mattis metus, ac faucibus urna. Nullam maximus nunc id tempus lacinia. Etiam accumsan ipsum nec nisl sollicitudin condimentum. Morbi faucibus, lorem vestibulum cursus rutrum, sapien orci ornare mi, et placerat eros neque nec nisl. Suspendisse in ullamcorper velit. Quisque eu vestibulum neque. Etiam dignissim hendrerit enim, eget dignissim tellus. Quisque viverra in nisl quis dignissim. Vestibulum congue tempor elit, sit amet cursus nibh facilisis eget.',
                         style: normalDark1,
-                        maxLines: 4,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
@@ -136,7 +136,10 @@ class KlubScreen extends StatelessWidget {
           children: [
             _header(),
             Container(
-              margin: EdgeInsets.all(defaultMargin),
+              margin: EdgeInsets.only(
+                  top: defaultMargin,
+                  left: defaultMargin,
+                  right: defaultMargin),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -146,9 +149,61 @@ class KlubScreen extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.filter_list),
-                  )
+                    icon: Icon(Icons.search),
+                  ),
                 ],
+              ),
+            ),
+            MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(
+                        bottom: 10, left: defaultMargin, right: defaultMargin),
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(60),
+                            child: Image.network(
+                              'https://randomuser.me/api/portraits/women/72.jpg',
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Membatu',
+                                style: normalDark1,
+                              ),
+                              Text(
+                                'Poomsae | Pria 69Kg',
+                                style: normalGrey1.copyWith(
+                                    color: Colors.grey[600], fontSize: 13),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
               ),
             )
           ],
