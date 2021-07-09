@@ -66,7 +66,7 @@ class NewsDetailScreen extends StatelessWidget {
                       width: 50,
                       height: 5,
                       decoration: BoxDecoration(
-                        color: darkGrey,
+                        color: grey,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -115,6 +115,53 @@ class NewsDetailScreen extends StatelessWidget {
                                   'tes',
                                   style: normalDark1,
                                 ),
+                              ),
+                              Wrap(
+                                spacing: 10.0,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Chip(
+                                      label: Text(
+                                        'Dokumen.pdf',
+                                        style: normalLight1,
+                                      ),
+                                      avatar: Icon(
+                                        Icons.download,
+                                        color: Colors.white,
+                                      ),
+                                      backgroundColor: primaryColor,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Chip(
+                                      label: Text(
+                                        'Dokumen.pdf',
+                                        style: normalLight1,
+                                      ),
+                                      avatar: Icon(
+                                        Icons.download,
+                                        color: Colors.white,
+                                      ),
+                                      backgroundColor: primaryColor,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Chip(
+                                      label: Text(
+                                        'Dokumen.pdf',
+                                        style: normalLight1,
+                                      ),
+                                      avatar: Icon(
+                                        Icons.download,
+                                        color: Colors.white,
+                                      ),
+                                      backgroundColor: primaryColor,
+                                    ),
+                                  ),
+                                ],
                               ),
                               //ImageInput(_selectImage),
                             ],
