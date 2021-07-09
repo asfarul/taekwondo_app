@@ -75,36 +75,32 @@ class ProfileScreen extends StatelessWidget {
                 EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
             child: Column(
               children: [
-                GestureDetector(
+                MenuItem(
+                  label: 'Edit Profile',
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.grey,
+                  ),
                   onTap: () {
                     Get.to(() => ProfileEditScreen());
                   },
-                  child: Container(
-                    margin: EdgeInsets.only(top: 10),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 30, horizontal: defaultMargin),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.edit,
-                          color: grey,
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Text(
-                          'Edit Profile',
-                          style: normalDark1,
-                        )
-                      ],
-                    ),
-                  ),
                 ),
-                GestureDetector(
+                // MenuItem(
+                //   label: 'Ganti Password',
+                //   icon: Icon(
+                //     Icons.vpn_key,
+                //     color: Colors.grey,
+                //   ),
+                //   onTap: () {
+                //     Get.to(() => ProfileEditScreen());
+                //   },
+                // ),
+                MenuItem(
+                  label: 'Log Out',
+                  icon: Icon(
+                    Icons.exit_to_app,
+                    color: Colors.grey,
+                  ),
                   onTap: () {
                     WidgetHelpers.showConfirmDialog(
                       context,
@@ -122,34 +118,54 @@ class ProfileScreen extends StatelessWidget {
                       },
                     );
                   },
-                  child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 30, horizontal: defaultMargin),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.exit_to_app,
-                            color: grey,
-                          ),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          Text(
-                            'Log out',
-                            style: normalDark1,
-                          )
-                        ],
-                      )),
-                )
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MenuItem extends StatelessWidget {
+  final VoidCallback? onTap;
+  final Icon icon;
+  final String? label;
+
+  const MenuItem({
+    this.onTap,
+    this.icon = const Icon(
+      Icons.edit,
+      color: Colors.grey,
+    ),
+    this.label,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(top: 10),
+        padding: EdgeInsets.symmetric(vertical: 30, horizontal: defaultMargin),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            icon,
+            SizedBox(
+              width: 16,
+            ),
+            Text(
+              label ?? '',
+              style: normalDark1,
+            )
+          ],
+        ),
       ),
     );
   }
