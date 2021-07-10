@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:taekwondo_app/providers/providers.dart';
 import 'package:taekwondo_app/ui/components/rounded_date_input.dart';
 import 'package:taekwondo_app/ui/components/rounded_dropdown_input.dart';
@@ -26,3 +28,4 @@ part 'news_detail_screen.dart';
 part 'profile_screen.dart';
 part 'profile_edit_screen.dart';
 part 'klub_screen.dart';
+part 'atlet_detail_screen.dart';

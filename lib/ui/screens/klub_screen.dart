@@ -6,6 +6,68 @@ class KlubScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    String _jenisKelamin;
+
+    void onSelectSex(String val) {
+      _jenisKelamin = val;
+    }
+
+    _showDialog() async {
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Cari Atlet'),
+            contentPadding: const EdgeInsets.all(16.0),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  RoundedInputField(
+                    hintText: 'Cari berdasarkan nama',
+                  ),
+                  RoundedDropdownInput(onSelectSex, jenisKelaminValues),
+                  RoundedDropdownInput(onSelectSex, jenisKelaminValues),
+                  RoundedDropdownInput(onSelectSex, jenisKelaminValues),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              Row(
+                children: [
+                  Flexible(
+                    child: DialogButton(
+                      child: Text(
+                        'Batal',
+                        style: normalLight1,
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      color: grey,
+                    ),
+                  ),
+                  Flexible(
+                    child: DialogButton(
+                      child: Text(
+                        'Cari',
+                        style: normalLight1,
+                      ),
+                      onPressed: () {},
+                      gradient: LinearGradient(
+                          colors: [primaryColor, midColor, secondaryColor],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     Widget _header() => Container(
           width: size.width * 1,
@@ -77,16 +139,32 @@ class KlubScreen extends StatelessWidget {
                 left: 0,
                 child: SafeArea(
                   child: Container(
+                    width: size.width * 1,
                     padding: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.settings,
+                                  color: Colors.white,
+                                ))
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -148,7 +226,7 @@ class KlubScreen extends StatelessWidget {
                     style: largeDark1,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: _showDialog,
                     icon: Icon(Icons.search),
                   ),
                 ],
@@ -162,45 +240,65 @@ class KlubScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(
-                        bottom: 10, left: defaultMargin, right: defaultMargin),
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(60),
-                            child: Image.network(
-                              'https://randomuser.me/api/portraits/women/72.jpg',
-                              height: 50,
-                              width: 50,
-                              fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => AtletDetailScreen());
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          bottom: 10,
+                          left: defaultMargin,
+                          right: defaultMargin),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Image.network(
+                                'https://randomuser.me/api/portraits/women/72.jpg',
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Membatu',
+                                  style: normalDark1,
+                                ),
+                                Text(
+                                  'Poomsae | Pria 69Kg',
+                                  style: normalGrey1.copyWith(
+                                      color: Colors.grey[600], fontSize: 13),
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
                             children: [
-                              Text(
-                                'Membatu',
-                                style: normalDark1,
+                              Icon(
+                                Icons.bookmark,
+                                color: grey,
                               ),
                               Text(
-                                'Poomsae | Pria 69Kg',
-                                style: normalGrey1.copyWith(
-                                    color: Colors.grey[600], fontSize: 13),
+                                '10',
+                                style: largeGrey2,
                               )
                             ],
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
