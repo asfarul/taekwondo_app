@@ -58,10 +58,10 @@ class AtletDetailScreen extends StatelessWidget {
                 'Mas Fatah Bin Lucinta Luna',
                 style: largeLight1,
               ),
-              Text(
-                'ayylmao@gmail.com',
-                style: normalLight1,
-              ),
+              // Text(
+              //   'ayylmao@gmail.com',
+              //   style: normalLight1,
+              // ),
             ],
           ),
         );
@@ -69,6 +69,82 @@ class AtletDetailScreen extends StatelessWidget {
       body: Column(
         children: [
           _header(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Flexible(
+                flex: 3,
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.fromLTRB(defaultMargin, 20, 10, 5),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Kategori',
+                        style: smallGrey2,
+                      ),
+                      Text(
+                        'Kyorugi',
+                        style: largeDark1,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 5,
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.fromLTRB(5, 20, defaultMargin, 5),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Kelas',
+                        style: smallGrey2,
+                      ),
+                      Text(
+                        'Under 63 Kg ',
+                        style: largeDark1,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            width: double.infinity,
+            margin:
+                EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Informasi Pribadi',
+                  style: smallGrey2,
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
