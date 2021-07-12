@@ -67,62 +67,64 @@ class ProfileScreen extends StatelessWidget {
     );
     return Scaffold(
       backgroundColor: bgColor,
-      body: Column(
-        children: [
-          _header,
-          Container(
-            margin:
-                EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
-            child: Column(
-              children: [
-                MenuItem(
-                  label: 'Edit Profile',
-                  icon: Icon(
-                    Icons.edit,
-                    color: Colors.grey,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _header,
+            Container(
+              margin:
+                  EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
+              child: Column(
+                children: [
+                  MenuItem(
+                    label: 'Edit Profile',
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.grey,
+                    ),
+                    onTap: () {
+                      Get.to(() => ProfileEditScreen());
+                    },
                   ),
-                  onTap: () {
-                    Get.to(() => ProfileEditScreen());
-                  },
-                ),
-                // MenuItem(
-                //   label: 'Ganti Password',
-                //   icon: Icon(
-                //     Icons.vpn_key,
-                //     color: Colors.grey,
-                //   ),
-                //   onTap: () {
-                //     Get.to(() => ProfileEditScreen());
-                //   },
-                // ),
-                MenuItem(
-                  label: 'Log Out',
-                  icon: Icon(
-                    Icons.exit_to_app,
-                    color: Colors.grey,
+                  // MenuItem(
+                  //   label: 'Ganti Password',
+                  //   icon: Icon(
+                  //     Icons.vpn_key,
+                  //     color: Colors.grey,
+                  //   ),
+                  //   onTap: () {
+                  //     Get.to(() => ProfileEditScreen());
+                  //   },
+                  // ),
+                  MenuItem(
+                    label: 'Log Out',
+                    icon: Icon(
+                      Icons.exit_to_app,
+                      color: Colors.grey,
+                    ),
+                    onTap: () {
+                      WidgetHelpers.showConfirmDialog(
+                        context,
+                        title: 'Anda yakin ingin logout?',
+                        message:
+                            'Anda membutuhkan email dan password untuk masuk kembali ke aplikasi',
+                        confirmText: 'Ya',
+                        cancelText: 'Tidak',
+                        onConfirm: () {
+                          Provider.of<AuthProvider>(context, listen: false)
+                              .logout();
+                        },
+                        onCancel: () {
+                          Get.back();
+                        },
+                      );
+                    },
                   ),
-                  onTap: () {
-                    WidgetHelpers.showConfirmDialog(
-                      context,
-                      title: 'Anda yakin ingin logout?',
-                      message:
-                          'Anda membutuhkan email dan password untuk masuk kembali ke aplikasi',
-                      confirmText: 'Ya',
-                      cancelText: 'Tidak',
-                      onConfirm: () {
-                        Provider.of<AuthProvider>(context, listen: false)
-                            .logout();
-                      },
-                      onCancel: () {
-                        Get.back();
-                      },
-                    );
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

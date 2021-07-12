@@ -28,15 +28,17 @@ class AuthProvider with ChangeNotifier {
       'password': password,
     });
 
-    var response = await authServices.login(context, data);
-    if (response?.data != null) {
-      print('success');
-      // SAVE CREDENTIALS
-      if (response?.data?.accessToken != null) {
-        _credentials.write(authKey, response?.data?.accessToken);
-        Get.offAll(() => HomeScreen());
-      }
-    }
+    // var response = await authServices.login(context, data);
+    // if (response?.data != null) {
+    //   print('success');
+    //   // SAVE CREDENTIALS
+    //   if (response?.data?.accessToken != null) {
+    //     _credentials.write(authKey, response?.data?.accessToken);
+    //     Get.offAll(() => HomeScreen());
+    //   }
+    // }
+    _credentials.write(authKey, 'testing');
+    Get.offAll(() => HomeScreen());
     // print(response);
     _isLoading = false;
     notifyListeners();

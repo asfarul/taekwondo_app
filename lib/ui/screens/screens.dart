@@ -29,3 +29,4 @@ part 'profile_screen.dart';
 part 'profile_edit_screen.dart';
 part 'klub_screen.dart';
 part 'atlet_detail_screen.dart';
+part 'klub_edit_screen.dart';

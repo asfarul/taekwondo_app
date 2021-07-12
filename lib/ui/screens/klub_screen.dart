@@ -71,14 +71,14 @@ class KlubScreen extends StatelessWidget {
 
     Widget _header() => Container(
           width: size.width * 1,
-          height: 350,
+          height: 250,
           child: Stack(
             children: [
               Container(
                 padding: EdgeInsets.only(
-                    left: defaultMargin, right: defaultMargin, top: 10),
+                    left: defaultMargin, right: defaultMargin, top: 30),
                 width: size.width * 1,
-                height: 300,
+                height: 250,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
@@ -157,50 +157,25 @@ class KlubScreen extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.settings,
-                                  color: Colors.white,
-                                ))
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.notifications,
+                                color: Colors.white,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                Get.to(() => KlubEditScreen());
+                              },
+                              icon: Icon(
+                                Icons.settings,
+                                color: Colors.white,
+                              ),
+                            ),
                           ],
                         )
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: defaultMargin,
-                left: defaultMargin,
-                child: Container(
-                  height: 110,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(0.0, 3.0),
-                        blurRadius: 10.0,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Deskripsi Klub :',
-                        style: normalDark3.copyWith(color: Colors.grey),
-                      ),
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget mattis metus, ac faucibus urna. Nullam maximus nunc id tempus lacinia. Etiam accumsan ipsum nec nisl sollicitudin condimentum. Morbi faucibus, lorem vestibulum cursus rutrum, sapien orci ornare mi, et placerat eros neque nec nisl. Suspendisse in ullamcorper velit. Quisque eu vestibulum neque. Etiam dignissim hendrerit enim, eget dignissim tellus. Quisque viverra in nisl quis dignissim. Vestibulum congue tempor elit, sit amet cursus nibh facilisis eget.',
-                        style: normalDark1,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
                   ),
                 ),
               ),
@@ -213,6 +188,35 @@ class KlubScreen extends StatelessWidget {
         child: Column(
           children: [
             _header(),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(0.0, 3.0),
+                    blurRadius: 10.0,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Deskripsi Klub :',
+                    style: normalDark3.copyWith(color: Colors.grey),
+                  ),
+                  Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget mattis metus, ac faucibus urna. Nullam maximus nunc id tempus lacinia. Etiam accumsan ipsum nec nisl sollicitudin condimentum. Morbi faucibus, lorem vestibulum cursus rutrum, sapien orci ornare mi, et placerat eros neque nec nisl. Suspendisse in ullamcorper velit. Quisque eu vestibulum neque. Etiam dignissim hendrerit enim, eget dignissim tellus. Quisque viverra in nisl quis dignissim. Vestibulum congue tempor elit, sit amet cursus nibh facilisis eget.',
+                    style: normalDark1,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
             Container(
               margin: EdgeInsets.only(
                   top: defaultMargin,
