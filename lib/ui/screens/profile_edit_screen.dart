@@ -150,7 +150,8 @@ class ProfileEditScreen extends StatelessWidget {
               icon: Icons.mail,
               textInputType: TextInputType.emailAddress,
             ),
-            RoundedDropdownInput(onSelectSex, jenisKelaminValues),
+            RoundedDropdownInput(
+                onSelectSex, jenisKelaminValues, 'Pilih Jenis Kelamin'),
             RoundedDateInput(onSelectDate),
             RoundedInputField(
               hintText: "Nomor Handphone Anda",

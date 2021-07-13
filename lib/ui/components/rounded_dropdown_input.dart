@@ -5,8 +5,13 @@ import 'package:taekwondo_app/ui/components/text_field_container.dart';
 class RoundedDropdownInput extends StatefulWidget {
   final Function onSelected;
   final List<String> data;
-  const RoundedDropdownInput(this.onSelected, this.data, {Key? key})
-      : super(key: key);
+  final String hint;
+  const RoundedDropdownInput(
+    this.onSelected,
+    this.data,
+    this.hint, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RoundedDropdownInputState createState() => _RoundedDropdownInputState();
@@ -47,7 +52,7 @@ class _RoundedDropdownInputState extends State<RoundedDropdownInput> {
           isExpanded: true,
           value: _selectedValue,
           hint: Text(
-            'Pilih Jenis Kelamin',
+            widget.hint,
             style: normalDark1.copyWith(color: Colors.grey),
           ),
         ),

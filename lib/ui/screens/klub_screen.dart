@@ -7,9 +7,19 @@ class KlubScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     String _jenisKelamin;
+    String _kategoriId;
+    String _kelasId;
 
     void onSelectSex(String val) {
       _jenisKelamin = val;
+    }
+
+    void onSelectCategory(String val) {
+      _kategoriId = val;
+    }
+
+    void onSelectClass(String val) {
+      _kelasId = val;
     }
 
     _showDialog() async {
@@ -27,9 +37,12 @@ class KlubScreen extends StatelessWidget {
                   RoundedInputField(
                     hintText: 'Cari berdasarkan nama',
                   ),
-                  RoundedDropdownInput(onSelectSex, jenisKelaminValues),
-                  RoundedDropdownInput(onSelectSex, jenisKelaminValues),
-                  RoundedDropdownInput(onSelectSex, jenisKelaminValues),
+                  RoundedDropdownInput(
+                      onSelectCategory, jenisKelaminValues, 'Pilih Kategori'),
+                  RoundedDropdownInput(
+                      onSelectSex, jenisKelaminValues, 'Pilih Jenis Kelamin'),
+                  RoundedDropdownInput(
+                      onSelectClass, jenisKelaminValues, 'Pilih Kelas'),
                 ],
               ),
             ),
