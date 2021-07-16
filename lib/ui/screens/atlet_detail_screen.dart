@@ -31,14 +31,28 @@ class AtletDetailScreen extends StatelessWidget {
                   padding: EdgeInsets.only(top: 10),
                   width: double.infinity,
                   alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -181,9 +195,18 @@ class AtletDetailScreen extends StatelessWidget {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: defaultMargin),
-                    child: Text(
-                      'Riwayat Kompetisi',
-                      style: normalDark2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Riwayat Kompetisi (3)',
+                          style: normalDark2,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Icon(Icons.add),
+                        ),
+                      ],
                     ),
                   ),
                   ListView.builder(
@@ -205,6 +228,8 @@ class AtletDetailScreen extends StatelessWidget {
                           '16 Februari 2077 - 18 Februari 2077 | Medali Emas',
                           style: smallDark1,
                         ),
+                        trailing: IconButton(
+                            onPressed: () {}, icon: Icon(Icons.delete)),
                       );
                     },
                   )

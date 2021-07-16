@@ -170,7 +170,9 @@ class KlubScreen extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(() => NotificationScreen());
+                              },
                               icon: Icon(
                                 Icons.notifications,
                                 color: Colors.white,
