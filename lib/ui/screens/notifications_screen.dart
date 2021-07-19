@@ -54,94 +54,41 @@ class NotificationScreen extends StatelessWidget {
                   ),
                 ),
                 // child ?? SizedBox(),
-                notifications.isNotEmpty
-                    ? Expanded(
-                        child: GroupedListView<dynamic, DateTime>(
-                            elements: [],
-                            groupBy: (applications) {
-                              return DateTime(
-                                  applications.year,
-                                  applications.tanggal.month,
-                                  applications.tanggal.day);
-                            },
-                            groupComparator: (value1, value2) =>
-                                value1.compareTo(value2),
-                            itemComparator: (element1, element2) =>
-                                element1.tanggal.compareTo(element2.tanggal),
-                            groupSeparatorBuilder: (DateTime date) {
-                              if (date.day == DateTime.now().day) {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: defaultMargin,
-                                  ),
-                                  child: Text(
-                                    'Hari ini',
-                                    style: normalDark1.copyWith(fontSize: 16),
-                                  ),
-                                );
-                              } else if (DateTime.now()
-                                      .difference(date)
-                                      .inDays ==
-                                  1) {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: defaultMargin,
-                                  ),
-                                  child: Text(
-                                    'Kemarin',
-                                    style: normalDark1.copyWith(fontSize: 16),
-                                  ),
-                                );
-                              } else {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: defaultMargin,
-                                  ),
-                                  child: Text(
-                                    DateFormat('EEEE, dd MMM yyyy', 'id-ID')
-                                        .format(date),
-                                    style: normalDark1.copyWith(fontSize: 16),
-                                  ),
-                                );
-                              }
-                              // we will add this later
-                            },
-                            order: GroupedListOrder.DESC,
-                            itemBuilder: (context, dynamic notification) =>
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: NotificationItem(),
-                                )),
-                      )
-                    : Expanded(
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.3,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/no_notification.png'),
-                                        fit: BoxFit.contain)),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                'Tidak ada notifikasi saat ini.',
-                                style: subheaderDark,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                // notifications.isNotEmpty
+                //     ?
+                Expanded(
+                    child: ListView.builder(
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return NotificationItem();
+                  },
+                ))
+                // : Expanded(
+                //     child: Center(
+                //       child: Column(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Container(
+                //             width: MediaQuery.of(context).size.width * 0.6,
+                //             height:
+                //                 MediaQuery.of(context).size.height * 0.3,
+                //             decoration: BoxDecoration(
+                //                 image: DecorationImage(
+                //                     image: AssetImage(
+                //                         'assets/images/no_notification.png'),
+                //                     fit: BoxFit.contain)),
+                //           ),
+                //           SizedBox(
+                //             height: 20,
+                //           ),
+                //           Text(
+                //             'Tidak ada notifikasi saat ini.',
+                //             style: subheaderDark,
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
               ],
             ),
           ),

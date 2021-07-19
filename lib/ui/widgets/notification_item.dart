@@ -17,8 +17,8 @@ class NotificationItem extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: 60,
-                height: 60,
+                width: 40,
+                height: 40,
                 margin: EdgeInsets.only(right: 10),
                 child: Container(
                   decoration: BoxDecoration(
@@ -46,24 +46,63 @@ class NotificationItem extends StatelessWidget {
                   ],
                 ),
               ),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.grey,
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {},
+                        child: Container(
+                          margin: EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      gradient: LinearGradient(
+                          colors: [primaryColor, midColor, secondaryColor],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {},
+                        child: Container(
+                          margin: EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: Container(
-            margin: EdgeInsets.only(right: 24, top: 5),
-            child: Icon(
-              Icons.close,
-              size: 24,
-              color: grey,
-            ),
           ),
         ),
         Positioned(
           bottom: 10,
           right: 29,
-          child: Text('Pukul ${DateFormat('HH : mm').format(DateTime.now())}',
+          child: Text(
+              '${DateFormat('EEE, dd/MM/y HH : mm').format(DateTime.now())}',
               style: smallDark1),
         ),
       ],
