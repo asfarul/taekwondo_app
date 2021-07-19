@@ -19,3 +19,7 @@ String defaultMessage =
     'Terjadi kesalahan dalam melakukan request, silahkan coba lagi nanti';
 
 final List<String> jenisKelaminValues = ['LAKI-LAKI', 'PEREMPUAN'];
+
+// koordinat
+double pontianakLatitude = -0.07728020450218849;
+double pontianakLongitude = 109.36279287099727;

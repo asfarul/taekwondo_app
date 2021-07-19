@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -34,3 +34,4 @@ part 'klub_screen.dart';
 part 'atlet_detail_screen.dart';
 part 'klub_edit_screen.dart';
 part 'notifications_screen.dart';
+part 'join_club_screen.dart';

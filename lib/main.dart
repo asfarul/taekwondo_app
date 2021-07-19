@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => JoinClubProvider()),
       ],
       child: GetMaterialApp(
         title: 'SITAEK App',
