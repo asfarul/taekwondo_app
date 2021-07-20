@@ -167,7 +167,8 @@ class HomeScreen extends StatelessWidget {
   Widget clubCard() {
     return GestureDetector(
       onTap: () {
-        Get.to(() => JoinClubScreen());
+        // Get.to(() => JoinClubScreen());
+        Get.to(() => KlubScreen());
       },
       child: Container(
         margin: EdgeInsets.symmetric(

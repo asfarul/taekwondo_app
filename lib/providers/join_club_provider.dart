@@ -1,8 +1,13 @@
 part of 'providers.dart';
 
 class JoinClubProvider extends ChangeNotifier {
-  final Completer<GoogleMapController> _mapController = Completer();
-  Completer<GoogleMapController> get mapController => _mapController;
+  //Property Google Map Controller completer
+  Completer<GoogleMapController> _completer = Completer();
+  Completer<GoogleMapController> get completer => _completer;
+
+  //Property Google Map Controller
+  GoogleMapController? _controller;
+  GoogleMapController? get controller => _controller;
 
   ClubServices clubServices = ClubServices();
 
@@ -11,11 +16,15 @@ class JoinClubProvider extends ChangeNotifier {
 
   List<JoinClubResponseDataClubs?> _clubs = [];
 
+  String baseFotoURL = 'http://localhost:8000/images/clubs';
+
+  String get clubFoto => _selectedMarker?.urlFoto ?? '';
+
   Set<Marker> _markers = {};
   Set<Marker> get markers => _markers;
 
-  String? _selectedMarker;
-  String? get selectedMarker => _selectedMarker;
+  JoinClubResponseDataClubs? _selectedMarker;
+  JoinClubResponseDataClubs? get selectedMarker => _selectedMarker;
 
   bool _isLoadSuccess = false;
   bool get isLoadSuccess => _isLoadSuccess;
@@ -32,36 +41,48 @@ class JoinClubProvider extends ChangeNotifier {
         _clubs.add(element);
       });
 
-      setMarkers(_clubs);
+      baseFotoURL = response!.data!.baseFoto!;
+
+      // setMarkers(_clubs);
       _isLoadSuccess = true;
+      setMarkers(_clubs);
     }
 
     notifyListeners();
   }
 
   void onMapCreated(GoogleMapController controller) async {
-    if (!_mapController.isCompleted) {
-      _mapController.complete(controller);
+    print('onMapCreated');
+
+    if (!_completer.isCompleted) {
+      _completer.complete(controller);
+      _controller = controller;
     }
 
-    setMarkers(_clubs);
-
     notifyListeners();
+  }
+
+  void changeCameraPosition(LatLng location) {
+    _controller?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(location.latitude, location.longitude), zoom: 18)));
   }
 
   void setMarkers(List<JoinClubResponseDataClubs?> clubs) {
     if (_clubs.length != 0) {
       _clubs.forEach((data) {
         List<String>? coor = data?.coordinat?.split(',');
+        var position = LatLng(
+          double.parse(coor?[0] ?? '0'),
+          double.parse(coor?[1] ?? '0'),
+        );
         _markers.add(
           Marker(
               markerId: MarkerId(data?.id ?? ''),
-              position: LatLng(
-                double.parse(coor?[0] ?? '0'),
-                double.parse(coor?[1] ?? '0'),
-              ),
+              position: position,
               onTap: () {
-                _selectedMarker = data?.id;
+                _selectedMarker = data;
+                // changeCameraPosition(position);
+                notifyListeners();
               }),
         );
       });

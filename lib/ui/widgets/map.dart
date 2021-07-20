@@ -24,6 +24,7 @@ class Map extends StatelessWidget {
           ),
       mapType: MapType.normal,
       myLocationButtonEnabled: false,
+      zoomControlsEnabled: false,
       myLocationEnabled: false,
       compassEnabled: false,
       tiltGesturesEnabled: false,
