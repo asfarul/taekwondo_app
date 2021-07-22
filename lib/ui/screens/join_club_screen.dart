@@ -4,7 +4,7 @@ class JoinClubScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var joinClubProv = Provider.of<JoinClubProvider>(context);
-    if (joinClubProv.cameraPosition == null || !joinClubProv.isLoadSuccess) {
+    if (joinClubProv.cameraPosition == null) {
       joinClubProv.intiMap(context);
     }
 
@@ -73,12 +73,27 @@ class JoinClubScreen extends StatelessWidget {
                           height: 64,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
-                            child: Image.network(
-                              '${joinClubProv.baseFotoURL}/${joinClubProv.selectedMarker?.urlFoto}',
-                              height: 64.0,
-                              width: 64.0,
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  '${joinClubProv.baseFotoURL}/${joinClubProv.selectedMarker?.urlFoto}',
+                              width: 64,
+                              height: 64,
                               fit: BoxFit.cover,
+                              placeholder: (context, url) => roundedShimmer(
+                                width: 64,
+                                height: 64,
+                                borderRadius: 16,
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.image_not_supported),
                             ),
+                            // child: FancyShimmerImage(
+                            //   imageUrl:
+                            //       '${joinClubProv.baseFotoURL}/${joinClubProv.selectedMarker?.urlFoto}',
+                            //   height: 64.0,
+                            //   width: 64.0,
+                            //   boxFit: BoxFit.cover,
+                            // ),
                           ),
                         ),
                         SizedBox(width: 10),

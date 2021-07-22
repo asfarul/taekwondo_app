@@ -23,8 +23,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cached_network_image: ^3.1.0
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
+  fancy_shimmer_image: ^2.0.0+1
   get: ^4.1.4
   get_storage: ^2.0.2
   google_fonts: ^2.1.0

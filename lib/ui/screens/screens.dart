@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:taekwondo_app/models/applications.dart';
 import 'package:taekwondo_app/providers/providers.dart';
+import 'package:taekwondo_app/ui/components/my_shimmer.dart';
 import 'package:taekwondo_app/ui/components/rounded_date_input.dart';
 import 'package:taekwondo_app/ui/components/rounded_dropdown_input.dart';
 import 'package:taekwondo_app/ui/components/rounded_input_field.dart';
