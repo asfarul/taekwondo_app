@@ -36,7 +36,7 @@ class UserModel {
         urlFoto: json['url_foto'] as String?,
         roles: json['roles'] == null
             ? null
-            : Role.fromJson(json['role'] as Map<String, dynamic>),
+            : Role.fromJson(json['roles'][0] as Map<String, dynamic>),
       );
 }
 

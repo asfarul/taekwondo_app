@@ -8,4 +8,6 @@ class Api {
   static final login = base + version + "login";
   static final register = base + version + "register";
   static final club = base + version + 'club';
+  static final user = base + version + 'user';
+  static final settings = base + version + 'settings';
 }

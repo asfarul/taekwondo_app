@@ -17,4 +17,13 @@ class AuthServices extends BaseServices {
       return Register.fromJson(response);
     }
   }
+
+  Future<dynamic> getUser(BuildContext context) async {
+    var response =
+        await request(context, Api.user, RequestType.GET, useToken: true);
+
+    if (response != null) {
+      return response;
+    }
+  }
 }

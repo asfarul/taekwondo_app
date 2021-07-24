@@ -100,6 +100,7 @@ class AuthProvider with ChangeNotifier {
               Get.offAll(() => HomeScreen());
             }
           }
+          _isLoading = false;
           notifyListeners();
         });
   }

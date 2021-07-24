@@ -4,6 +4,8 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // var auth = Provider.of<AuthProvider>(context, listen: false);
+
     return Scaffold(
       body: Container(
         color: bgColor,
@@ -13,45 +15,56 @@ class HomeScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 28, horizontal: defaultMargin),
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  Consumer<SettingsProvider>(
+                    builder: (context, prov, child) {
+                      if (prov.clubStatus != '') {
+                        prov.initSettings(context);
+                      } else {
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 28, horizontal: defaultMargin),
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Selamat datang,',
-                                style: normalDark1,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Selamat datang,',
+                                      style: normalDark1,
+                                    ),
+                                    Text(
+                                      prov.user?.name ?? '-',
+                                      style: normalDark2.copyWith(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Text(
-                                'Lucinta Luna Bin Fatah',
-                                style: normalDark2.copyWith(fontSize: 18),
-                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => ProfileScreen());
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                  child: FancyShimmerImage(
+                                    imageUrl:
+                                        'https://images.unsplash.com/photo-1465572089651-8fde36c892dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+                                    width: 64,
+                                    height: 64,
+                                    boxFit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() => ProfileScreen());
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: FancyShimmerImage(
-                              imageUrl:
-                                  'https://images.unsplash.com/photo-1465572089651-8fde36c892dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-                              width: 64,
-                              height: 64,
-                              boxFit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                        );
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
                   ),
                   clubCard(),
                   Column(

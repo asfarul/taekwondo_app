@@ -7,6 +7,17 @@ String myCredPref = 'MyCredentials';
 String userId = 'user_id';
 String authKey = 'auth_key';
 
+// Status Club
+String pending = 'PENDING';
+String bergabung = 'BERGABUNG';
+String kosong = 'KOSONG';
+String error = 'ERROR';
+
+// FOTO URL
+String userBaseFoto = Api.base + 'images/users';
+String clubBaseFoto = Api.base + 'images/clubs';
+String newsBaseFoto = Api.base + 'images/news';
+
 // DioError messages
 String cancelMessage = 'Permintaan request ke server dibatalkan.';
 String connectTimeoutMessage =
