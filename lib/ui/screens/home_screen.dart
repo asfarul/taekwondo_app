@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Consumer<SettingsProvider>(
                     builder: (context, prov, child) {
-                      if (prov.clubStatus != '') {
+                      if (prov.clubStatus == '') {
                         prov.initSettings(context);
                       } else {
                         return Container(

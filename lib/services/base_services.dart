@@ -63,8 +63,14 @@ class BaseServices {
 
       //* if 401 then return to login
       if (response.statusCode > 200) {
-        WidgetHelpers.snackbar(context, SnackbarType.error,
-            title: "Error!", message: result['data']['message'] ?? '-');
+        if (result != null) {
+          WidgetHelpers.snackbar(context, SnackbarType.error,
+              title: "Error!", message: result['data']['message'] ?? '-');
+        } else {
+          WidgetHelpers.snackbar(context, SnackbarType.error,
+              title: "Error!", message: 'Unauthorized');
+        }
+
         return null;
       }
 
@@ -93,7 +99,12 @@ class BaseServices {
         break;
       case DioErrorType.response:
         var response = json.decode(dioError.response.toString());
-        errorDescription = '${response['data']['message']}';
+        if (response['data'] != null) {
+          errorDescription = '${response['data']['message']}';
+        } else {
+          errorDescription = 'Unauthorized';
+        }
+
         break;
       case DioErrorType.sendTimeout:
         errorDescription = sendTimeoutMessage;
