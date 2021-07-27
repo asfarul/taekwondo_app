@@ -5,18 +5,21 @@ const defaultMargin = 16.0;
 // Shared Preferences
 String myCredPref = 'MyCredentials';
 String userId = 'user_id';
+String userName = 'user_name';
+String userFoto = 'user_foto';
 String authKey = 'auth_key';
 
 // Status Club
-String pending = 'PENDING';
-String bergabung = 'BERGABUNG';
-String kosong = 'KOSONG';
-String error = 'ERROR';
+String melamar = 'Melamar';
+String aktif = 'Aktif';
+String nonAktif = 'Nonaktif';
+String kosong = 'Kosong';
+String error = 'Error';
 
 // FOTO URL
 String userBaseFoto = Api.base + 'images/users';
 String clubBaseFoto = Api.base + 'images/clubs';
-String newsBaseFoto = Api.base + 'images/news';
+String newsBaseFoto = Api.base + 'images/posts';
 
 // DioError messages
 String cancelMessage = 'Permintaan request ke server dibatalkan.';

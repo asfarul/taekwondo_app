@@ -10,16 +10,22 @@ class SettingsProvider extends ChangeNotifier {
   dynamic _clubInfo;
   dynamic get clubInfo => _clubInfo;
 
-  AuthServices _auth = AuthServices();
+  List<BeritaModel> _berita = [];
+  List<BeritaModel> get berita => _berita;
+
+  SettingServices _settingServices = SettingServices();
 
   void initSettings(BuildContext context) async {
-    var response = await _auth.getUser(context);
+    var response = await _settingServices.getSettingsData(context);
     if (response != null) {
       if (response['data'] != null) {
         _user = UserModel.fromJson(response['data']['user']);
+        _berita = List<BeritaModel>.from(
+            response['data']['berita'].map((x) => BeritaModel.fromJson(x)));
+        _clubStatus = response['data']['statusClub'] as String;
       }
     }
-    _clubStatus = 'BERGABUNG';
+    _clubStatus = 'KOSONG';
     notifyListeners();
   }
 }

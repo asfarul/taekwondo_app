@@ -9,5 +9,5 @@ class Api {
   static final register = base + version + "register";
   static final club = base + version + 'club';
   static final user = base + version + 'user';
-  static final settings = base + version + 'settings';
+  static final settings = base + version + 'user/settings';
 }

@@ -5,7 +5,7 @@ class SettingServices extends BaseServices {
     var response =
         await request(context, Api.settings, RequestType.GET, useToken: true);
     if (response != null) {
-      return response['data'];
+      return response;
     }
   }
 }
