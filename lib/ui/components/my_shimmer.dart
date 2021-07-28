@@ -4,8 +4,8 @@ import 'package:supercharged/supercharged.dart';
 
 Widget textShimmer({double width = 140.0, double height = 20.0}) {
   return Shimmer.fromColors(
-    baseColor: Colors.grey,
-    highlightColor: Colors.white,
+    baseColor: Colors.grey[300]!,
+    highlightColor: Colors.grey[100]!,
     child: Container(
       height: height,
       width: width,
@@ -17,13 +17,13 @@ Widget textShimmer({double width = 140.0, double height = 20.0}) {
 Widget roundedShimmer(
     {double width = double.infinity,
     double height = 50,
-    Color baseColor = Colors.grey,
-    Color highlightColor = Colors.white,
+    Color? baseColor,
+    Color? highlightColor,
     double borderRadius = 15,
     Widget? child}) {
   return Shimmer.fromColors(
-    baseColor: baseColor,
-    highlightColor: highlightColor,
+    baseColor: baseColor ?? Colors.grey[300]!,
+    highlightColor: highlightColor ?? Colors.grey[100]!,
     child: Container(
       height: height,
       width: width,

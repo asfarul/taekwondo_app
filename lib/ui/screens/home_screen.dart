@@ -4,8 +4,6 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // var auth = Provider.of<AuthProvider>(context, listen: false);
-
     return Scaffold(
       body: Container(
         color: bgColor,
@@ -61,44 +59,80 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       }
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                  ),
-                  clubCard(),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(defaultMargin),
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 28, horizontal: defaultMargin),
+                        color: Colors.white,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Berita Terbaru',
-                              style: largeDark2,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.to(() => NewsListScreen());
-                              },
-                              child: Text(
-                                'Lihat Semua',
-                                style: normalDark1,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  textShimmer(width: 110, height: 17),
+                                  SizedBox(height: 6),
+                                  textShimmer(width: 70, height: 15),
+                                ],
                               ),
-                            )
+                            ),
+                            roundedShimmer(
+                                width: 64, height: 64, borderRadius: 16),
                           ],
                         ),
-                      ),
-                      Consumer<SettingsProvider>(
-                          builder: (context, prov, child) {
-                        if (prov.clubStatus != '') {
+                      );
+                    },
+                  ),
+                  Consumer<SettingsProvider>(builder: (context, prov, child) {
+                    if (prov.clubStatus != '') {
+                      return clubCard();
+                    }
+
+                    return Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: defaultMargin,
+                          vertical: defaultMargin * 2),
+                      child: roundedShimmer(borderRadius: 16, height: 135),
+                    );
+                  }),
+                  Consumer<SettingsProvider>(
+                    builder: (context, prov, child) => Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(defaultMargin),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              prov.clubStatus == ''
+                                  ? textShimmer(width: 120, height: 20)
+                                  : Text(
+                                      'Berita Terbaru',
+                                      style: largeDark2,
+                                    ),
+                              prov.clubStatus == ''
+                                  ? textShimmer(width: 50, height: 16)
+                                  : GestureDetector(
+                                      onTap: () {
+                                        Get.to(() => NewsListScreen());
+                                      },
+                                      child: Text(
+                                        'Lihat Semua',
+                                        style: normalDark1,
+                                      ),
+                                    )
+                            ],
+                          ),
+                        ),
+                        Consumer<SettingsProvider>(
+                            builder: (context, prov, child) {
                           return Container(
                             width: double.infinity,
                             height: 280,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: prov.berita.length,
+                              itemCount: prov.clubStatus == ''
+                                  ? 3
+                                  : prov.berita.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
@@ -129,21 +163,29 @@ class HomeScreen extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: <Widget>[
-                                                  Text(
-                                                    prov.berita[index].judul!,
-                                                    style: normalDark2,
-                                                    maxLines: 2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
+                                                  prov.clubStatus == ''
+                                                      ? textShimmer(
+                                                          width: 180,
+                                                          height: 18)
+                                                      : Text(
+                                                          prov.berita[index]
+                                                              .judul!,
+                                                          style: normalDark2,
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                   const SizedBox(height: 2.0),
-                                                  Text(
-                                                      DateFormat(
-                                                              'EEE, dd MMM yyyy')
-                                                          .format(prov
-                                                              .berita[index]
-                                                              .createdAt!),
-                                                      style: smallDark1),
+                                                  prov.clubStatus == ''
+                                                      ? textShimmer(
+                                                          width: 70, height: 15)
+                                                      : Text(
+                                                          DateFormat(
+                                                                  'EEE, dd MMM yyyy')
+                                                              .format(prov
+                                                                  .berita[index]
+                                                                  .createdAt!),
+                                                          style: smallDark1),
                                                   const SizedBox(height: 2.0),
                                                 ],
                                               ),
@@ -163,18 +205,25 @@ class HomeScreen extends StatelessWidget {
                                               )
                                             ],
                                           ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                            child: FancyShimmerImage(
-                                              imageUrl: newsBaseFoto +
-                                                  '/' +
-                                                  prov.berita[index].thumbnail!,
-                                              width: 290,
-                                              height: 180,
-                                              boxFit: BoxFit.cover,
-                                            ),
-                                          ),
+                                          child: prov.clubStatus == ''
+                                              ? roundedShimmer(
+                                                  width: 290,
+                                                  height: 180,
+                                                  borderRadius: 20)
+                                              : ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  child: FancyShimmerImage(
+                                                    imageUrl: newsBaseFoto +
+                                                        '/' +
+                                                        prov.berita[index]
+                                                            .thumbnail!,
+                                                    width: 290,
+                                                    height: 180,
+                                                    boxFit: BoxFit.cover,
+                                                  ),
+                                                ),
                                         )
                                       ],
                                     ),
@@ -183,11 +232,9 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           );
-                        }
-
-                        return CircularProgressIndicator();
-                      }),
-                    ],
+                        }),
+                      ],
+                    ),
                   )
                 ],
               ),
