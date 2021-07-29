@@ -84,8 +84,15 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   Consumer<SettingsProvider>(builder: (context, prov, child) {
-                    if (prov.clubStatus != '') {
-                      return clubCard();
+                    if (prov.clubStatus == aktif) {
+                      return clubCard(
+                          nama: prov.myClub!.nama!,
+                          kategori: prov.kategori ?? '-',
+                          status: prov.role ?? '-');
+                    }
+
+                    if (prov.clubStatus == kosong) {
+                      return joinClubCard();
                     }
 
                     return Container(
@@ -245,11 +252,12 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget clubCard() {
+  Widget clubCard(
+      {String nama = '', String status = '', String kategori = ''}) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => JoinClubScreen());
-        // Get.to(() => KlubScreen());
+        // Get.to(() => JoinClubScreen());
+        Get.to(() => KlubScreen());
       },
       child: Container(
         margin: EdgeInsets.symmetric(
@@ -280,11 +288,11 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Klub Taekwondo Anda',
+                    'Klub Taekwondo',
                     style: smallLight1,
                   ),
                   Text(
-                    'Klub Taekwondo Cabang A',
+                    nama,
                     style: normalLight1.copyWith(fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
@@ -300,7 +308,7 @@ class HomeScreen extends StatelessWidget {
                             style: smallLight1,
                           ),
                           Text(
-                            'Atlet',
+                            status,
                             style: normalLight1.copyWith(
                                 fontWeight: FontWeight.w500),
                           ),
@@ -317,7 +325,7 @@ class HomeScreen extends StatelessWidget {
                             style: smallLight1,
                           ),
                           Text(
-                            'Poomsae',
+                            kategori,
                             style: normalLight1.copyWith(
                                 fontWeight: FontWeight.w500),
                           ),
@@ -326,21 +334,82 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         width: 30,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Tgl Bergabung',
-                            style: smallLight1,
-                          ),
-                          Text(
-                            '19/05/2019',
-                            style: normalLight1.copyWith(
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       'Tgl Bergabung',
+                      //       style: smallLight1,
+                      //     ),
+                      //     Text(
+                      //       '19/05/2019',
+                      //       style: normalLight1.copyWith(
+                      //           fontWeight: FontWeight.w500),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  Icons.chevron_right,
+                  color: Colors.white,
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget joinClubCard() {
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => JoinClubScreen());
+        // Get.to(() => KlubScreen());
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: defaultMargin, vertical: defaultMargin * 2),
+        padding: EdgeInsets.symmetric(vertical: 40, horizontal: defaultMargin),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.centerLeft,
+            colors: [
+              primaryColor,
+              secondaryColor,
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 15,
+                color: primaryColor.withOpacity(0.3),
+                offset: Offset(1, 15),
+                spreadRadius: 0)
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Anda tidak memiliki klub',
+                    style: smallLight1,
+                  ),
+                  Text(
+                    'Cari dan Gabung Klub',
+                    style: largeLight1,
                   ),
                 ],
               ),
