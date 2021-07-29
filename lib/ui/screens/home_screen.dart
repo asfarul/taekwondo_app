@@ -17,7 +17,8 @@ class HomeScreen extends StatelessWidget {
                     builder: (context, prov, child) {
                       if (prov.clubStatus == '') {
                         prov.initSettings(context);
-                      } else {
+                      }
+                      if (prov.clubStatus != '' && prov.clubStatus != error) {
                         return Container(
                           padding: EdgeInsets.symmetric(
                               vertical: 28, horizontal: defaultMargin),
@@ -59,6 +60,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       }
+
                       return Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 28, horizontal: defaultMargin),
@@ -89,10 +91,14 @@ class HomeScreen extends StatelessWidget {
                           nama: prov.myClub!.nama!,
                           kategori: prov.kategori ?? '-',
                           status: prov.role ?? '-');
-                    }
+                    } else {}
 
                     if (prov.clubStatus == kosong) {
                       return joinClubCard();
+                    }
+
+                    if (prov.clubStatus == melamar) {
+                      return melamarClubCard(namaKlub: prov.myClub!.nama!);
                     }
 
                     return Container(
@@ -110,13 +116,13 @@ class HomeScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              prov.clubStatus == ''
+                              prov.clubStatus == '' || prov.clubStatus == error
                                   ? textShimmer(width: 120, height: 20)
                                   : Text(
                                       'Berita Terbaru',
                                       style: largeDark2,
                                     ),
-                              prov.clubStatus == ''
+                              prov.clubStatus == '' || prov.clubStatus == error
                                   ? textShimmer(width: 50, height: 16)
                                   : GestureDetector(
                                       onTap: () {
@@ -137,7 +143,8 @@ class HomeScreen extends StatelessWidget {
                             height: 280,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: prov.clubStatus == ''
+                              itemCount: prov.clubStatus == '' ||
+                                      prov.clubStatus == error
                                   ? 3
                                   : prov.berita.length,
                               itemBuilder: (context, index) {
@@ -170,7 +177,9 @@ class HomeScreen extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: <Widget>[
-                                                  prov.clubStatus == ''
+                                                  prov.clubStatus == '' ||
+                                                          prov.clubStatus ==
+                                                              error
                                                       ? textShimmer(
                                                           width: 180,
                                                           height: 18)
@@ -183,7 +192,9 @@ class HomeScreen extends StatelessWidget {
                                                               .ellipsis,
                                                         ),
                                                   const SizedBox(height: 2.0),
-                                                  prov.clubStatus == ''
+                                                  prov.clubStatus == '' ||
+                                                          prov.clubStatus ==
+                                                              error
                                                       ? textShimmer(
                                                           width: 70, height: 15)
                                                       : Text(
@@ -212,7 +223,8 @@ class HomeScreen extends StatelessWidget {
                                               )
                                             ],
                                           ),
-                                          child: prov.clubStatus == ''
+                                          child: prov.clubStatus == '' ||
+                                                  prov.clubStatus == error
                                               ? roundedShimmer(
                                                   width: 290,
                                                   height: 180,
@@ -349,6 +361,67 @@ class HomeScreen extends StatelessWidget {
                       //   ],
                       // ),
                     ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  Icons.chevron_right,
+                  color: Colors.white,
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget melamarClubCard({String namaKlub = ''}) {
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => JoinClubScreen());
+        // Get.to(() => KlubScreen());
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: defaultMargin, vertical: defaultMargin * 2),
+        padding: EdgeInsets.symmetric(vertical: 40, horizontal: defaultMargin),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.centerLeft,
+            colors: [
+              primaryColor,
+              secondaryColor,
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 15,
+                color: primaryColor.withOpacity(0.3),
+                offset: Offset(1, 15),
+                spreadRadius: 0)
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Anda sedang melamar di klub',
+                    style: smallLight1,
+                  ),
+                  Text(
+                    namaKlub,
+                    style: largeLight1,
                   ),
                 ],
               ),
