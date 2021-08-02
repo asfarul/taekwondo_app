@@ -16,11 +16,6 @@ String nonAktif = 'Nonaktif';
 String kosong = 'Kosong';
 String error = 'Error';
 
-// FOTO URL
-String userBaseFoto = Api.base + 'images/users';
-String clubBaseFoto = Api.base + 'images/clubs';
-String newsBaseFoto = Api.base + 'images/posts';
-
 // DioError messages
 String cancelMessage = 'Permintaan request ke server dibatalkan.';
 String connectTimeoutMessage =

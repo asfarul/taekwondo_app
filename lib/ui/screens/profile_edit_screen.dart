@@ -1,18 +1,27 @@
 part of 'screens.dart';
 
 class ProfileEditScreen extends StatelessWidget {
-  const ProfileEditScreen({Key? key}) : super(key: key);
+  final UserModel user;
+  ProfileEditScreen(
+    this.user, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var authProvider = Provider.of<AuthProvider>(context, listen: false);
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _namaController = TextEditingController();
-    TextEditingController _alamatController = TextEditingController();
-    TextEditingController _noHPController = TextEditingController();
-    String? _tglLahir;
-    String? _jenisKelamin;
+    TextEditingController _emailController =
+        TextEditingController(text: user.email);
+    TextEditingController _namaController =
+        TextEditingController(text: user.name);
+    TextEditingController _alamatController =
+        TextEditingController(text: user.alamat);
+    TextEditingController _noHPController =
+        TextEditingController(text: user.noHp);
+    String? _tglLahir =
+        user.tglLahir == null ? null : formatDateToStringValue(user.tglLahir!);
+    String? _jenisKelamin = user.jenisKelamin;
 
     void onSelectDate(String val) {
       _tglLahir = val;
@@ -70,12 +79,19 @@ class ProfileEditScreen extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(60),
-                      child: Image.network(
-                        'https://randomuser.me/api/portraits/women/72.jpg',
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
+                      child: user.urlFoto == null
+                          ? Image.asset(
+                              'assets/images/user-default.jpeg',
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100,
+                            )
+                          : FancyShimmerImage(
+                              imageUrl: Api.userBaseFoto + '/' + user.urlFoto!,
+                              width: 100,
+                              height: 100,
+                              boxFit: BoxFit.cover,
+                            ),
                     ),
                     Positioned(
                       bottom: 0,
@@ -147,21 +163,24 @@ class ProfileEditScreen extends StatelessWidget {
             RoundedInputField(
               hintText: "Alamat Email Anda",
               controller: _emailController,
+              value: user.email,
               icon: Icons.mail,
               textInputType: TextInputType.emailAddress,
             ),
-            RoundedDropdownInput(
-                onSelectSex, jenisKelaminValues, 'Pilih Jenis Kelamin'),
-            RoundedDateInput(onSelectDate),
+            RoundedDropdownInput(onSelectSex, _jenisKelamin!,
+                jenisKelaminValues, 'Pilih Jenis Kelamin'),
+            RoundedDateInput(onSelectDate, user.tglLahir),
             RoundedInputField(
               hintText: "Nomor Handphone Anda",
               controller: _noHPController,
+              value: user.noHp,
               icon: Icons.phone,
               textInputType: TextInputType.phone,
             ),
             RoundedInputField(
               hintText: "Alamat Lengkap Anda",
               controller: _alamatController,
+              value: user.alamat,
               icon: Icons.location_on,
             ),
             SizedBox(height: defaultMargin * 2),

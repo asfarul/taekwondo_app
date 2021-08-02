@@ -37,12 +37,12 @@ class KlubScreen extends StatelessWidget {
                   RoundedInputField(
                     hintText: 'Cari berdasarkan nama',
                   ),
+                  RoundedDropdownInput(onSelectCategory, null,
+                      jenisKelaminValues, 'Pilih Kategori'),
+                  RoundedDropdownInput(onSelectSex, null, jenisKelaminValues,
+                      'Pilih Jenis Kelamin'),
                   RoundedDropdownInput(
-                      onSelectCategory, jenisKelaminValues, 'Pilih Kategori'),
-                  RoundedDropdownInput(
-                      onSelectSex, jenisKelaminValues, 'Pilih Jenis Kelamin'),
-                  RoundedDropdownInput(
-                      onSelectClass, jenisKelaminValues, 'Pilih Kelas'),
+                      onSelectClass, null, jenisKelaminValues, 'Pilih Kelas'),
                 ],
               ),
             ),

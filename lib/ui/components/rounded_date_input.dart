@@ -4,7 +4,12 @@ import 'package:taekwondo_app/utils/commons.dart';
 
 class RoundedDateInput extends StatefulWidget {
   final Function onSelectDate;
-  const RoundedDateInput(this.onSelectDate, {Key? key}) : super(key: key);
+  final DateTime? initDate;
+  const RoundedDateInput(
+    this.onSelectDate,
+    this.initDate, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RoundedDateInputState createState() => _RoundedDateInputState();
@@ -13,6 +18,16 @@ class RoundedDateInput extends StatefulWidget {
 class _RoundedDateInputState extends State<RoundedDateInput> {
   DateTime? _pickedDate;
   TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.initDate != null) {
+      _pickedDate = widget.initDate;
+      _controller.text = formatDateToStringValue(widget.initDate!)!;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

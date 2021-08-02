@@ -43,17 +43,25 @@ class HomeScreen extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => ProfileScreen());
+                                  Get.to(() => ProfileScreen(prov.user!));
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16.0),
-                                  child: FancyShimmerImage(
-                                    imageUrl:
-                                        'https://images.unsplash.com/photo-1465572089651-8fde36c892dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-                                    width: 64,
-                                    height: 64,
-                                    boxFit: BoxFit.cover,
-                                  ),
+                                  child: prov.user?.urlFoto == null
+                                      ? Image.asset(
+                                          'assets/images/user-default.jpeg',
+                                          fit: BoxFit.cover,
+                                          width: 64,
+                                          height: 64,
+                                        )
+                                      : FancyShimmerImage(
+                                          imageUrl: Api.userBaseFoto +
+                                              '/' +
+                                              prov.user!.urlFoto!,
+                                          width: 64,
+                                          height: 64,
+                                          boxFit: BoxFit.cover,
+                                        ),
                                 ),
                               )
                             ],
@@ -234,7 +242,7 @@ class HomeScreen extends StatelessWidget {
                                                       BorderRadius.circular(
                                                           20.0),
                                                   child: FancyShimmerImage(
-                                                    imageUrl: newsBaseFoto +
+                                                    imageUrl: Api.newsBaseFoto +
                                                         '/' +
                                                         prov.berita[index]
                                                             .thumbnail!,

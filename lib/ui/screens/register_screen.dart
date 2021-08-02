@@ -28,22 +28,29 @@ class RegisterScreen extends StatelessWidget {
       onBackButtonPressed: () {
         Get.back();
       },
-      bottomNavigationBar: GradientRoundedButton(
-        child: Text(
-          'Daftar',
-          style: normalLight1,
-        ),
-        onPressed: () {
-          authProvider.register(context,
-              email: _emailController.text,
-              nama: _namaController.text,
-              jk: _jenisKelamin,
-              tglLahir: _tglLahir,
-              noHP: _noHPController.text,
-              alamat: _alamatController.text,
-              password: _passwordController.text);
-        },
-      ),
+      bottomNavigationBar:
+          Consumer<AuthProvider>(builder: (context, prov, child) {
+        if (!prov.isLoading)
+          return GradientRoundedButton(
+            child: Text(
+              'Daftar',
+              style: normalLight1,
+            ),
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              authProvider.register(context,
+                  email: _emailController.text,
+                  nama: _namaController.text,
+                  jk: _jenisKelamin,
+                  tglLahir: _tglLahir,
+                  noHP: _noHPController.text,
+                  alamat: _alamatController.text,
+                  password: _passwordController.text);
+            },
+          );
+
+        return CircularProgressIndicator();
+      }),
       child: SingleChildScrollView(
         child: Container(
           width: double.infinity,
@@ -91,6 +98,7 @@ class RegisterScreen extends StatelessWidget {
               RoundedInputField(
                 hintText: "Nama Lengkap Anda",
                 controller: _namaController,
+                textInputType: TextInputType.name,
                 icon: Icons.person,
               ),
               RoundedInputField(
@@ -100,8 +108,8 @@ class RegisterScreen extends StatelessWidget {
                 textInputType: TextInputType.emailAddress,
               ),
               RoundedDropdownInput(
-                  onSelectSex, jenisKelaminValues, 'Pilih Jenis Kelamin'),
-              RoundedDateInput(onSelectDate),
+                  onSelectSex, null, jenisKelaminValues, 'Pilih Jenis Kelamin'),
+              RoundedDateInput(onSelectDate, null),
               RoundedInputField(
                 hintText: "Nomor Handphone Anda",
                 controller: _noHPController,

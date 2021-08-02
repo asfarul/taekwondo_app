@@ -4,10 +4,12 @@ import 'package:taekwondo_app/ui/components/text_field_container.dart';
 
 class RoundedDropdownInput extends StatefulWidget {
   final Function onSelected;
+  final String? initValue;
   final List<String> data;
   final String hint;
   const RoundedDropdownInput(
     this.onSelected,
+    this.initValue,
     this.data,
     this.hint, {
     Key? key,
@@ -19,6 +21,14 @@ class RoundedDropdownInput extends StatefulWidget {
 
 class _RoundedDropdownInputState extends State<RoundedDropdownInput> {
   dynamic _selectedValue;
+
+  @override
+  void initState() {
+    if (widget.initValue != null) {
+      _selectedValue = widget.initValue;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

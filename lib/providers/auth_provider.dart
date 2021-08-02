@@ -34,6 +34,7 @@ class AuthProvider with ChangeNotifier {
       // SAVE CREDENTIALS
       if (response?.data?.accessToken != null) {
         _credentials.write(authKey, response?.data?.accessToken);
+        _pictureFile = null;
         Get.offAll(() => HomeScreen());
       }
     }
@@ -75,6 +76,8 @@ class AuthProvider with ChangeNotifier {
         onConfirm: () async {
           _isLoading = true;
           notifyListeners();
+          Get.back();
+          print(_pictureFile);
           dio.FormData data = dio.FormData.fromMap(
             {
               'name': nama,
@@ -86,7 +89,7 @@ class AuthProvider with ChangeNotifier {
               'jenis_kelamin': jk,
               'url_foto': _pictureFile == null
                   ? null
-                  : dio.MultipartFile.fromFile(_pictureFile!.path,
+                  : await dio.MultipartFile.fromFile(_pictureFile!.path,
                       filename: _pictureFile?.path.split('/').last),
             },
           );
@@ -97,6 +100,7 @@ class AuthProvider with ChangeNotifier {
             // SAVE CREDENTIALS
             if (response?.data?.accessToken != null) {
               _credentials.write(authKey, response?.data?.accessToken);
+              _pictureFile = null;
               Get.offAll(() => HomeScreen());
             }
           }
@@ -142,7 +146,8 @@ class AuthProvider with ChangeNotifier {
 
   void pickImage(BuildContext context) async {
     final picker = ImagePicker();
-    var pickedImage = await picker.getImage(source: ImageSource.gallery);
+    var pickedImage =
+        await picker.getImage(source: ImageSource.gallery, imageQuality: 70);
 
     if (pickedImage != null) {
       _pictureFile = File(pickedImage.path);

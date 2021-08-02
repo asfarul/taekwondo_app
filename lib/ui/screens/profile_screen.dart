@@ -1,7 +1,11 @@
 part of 'screens.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  final UserModel user;
+  const ProfileScreen(
+    this.user, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +23,8 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(32),
-          bottomRight: Radius.circular(32),
+          bottomLeft: Radius.circular(40),
+          // bottomRight: Radius.circular(32),
         ),
       ),
       child: Column(
@@ -45,21 +49,28 @@ class ProfileScreen extends StatelessWidget {
           Container(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(60),
-              child: Image.network(
-                'https://randomuser.me/api/portraits/women/72.jpg',
-                height: 100,
-                width: 100,
-                fit: BoxFit.cover,
-              ),
+              child: user.urlFoto == null
+                  ? Image.asset(
+                      'assets/images/user-default.jpeg',
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
+                    )
+                  : FancyShimmerImage(
+                      imageUrl: Api.userBaseFoto + '/' + user.urlFoto!,
+                      width: 100,
+                      height: 100,
+                      boxFit: BoxFit.cover,
+                    ),
             ),
           ),
           SizedBox(height: 15),
           Text(
-            'Mas Fatah Bin Lucinta Luna',
+            user.name!,
             style: largeLight1,
           ),
           Text(
-            'ayylmao@gmail.com',
+            user.email!,
             style: normalLight1,
           ),
         ],
@@ -83,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                       color: Colors.grey,
                     ),
                     onTap: () {
-                      Get.to(() => ProfileEditScreen());
+                      Get.to(() => ProfileEditScreen(user));
                     },
                   ),
                   // MenuItem(
