@@ -19,3 +19,4 @@ import 'package:taekwondo_app/utils/widget_helpers.dart';
 part 'auth_provider.dart';
 part 'join_club_provider.dart';
 part 'settings_provider.dart';
+part 'news_provider.dart';

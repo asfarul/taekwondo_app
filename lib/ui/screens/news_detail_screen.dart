@@ -1,7 +1,11 @@
 part of 'screens.dart';
 
 class NewsDetailScreen extends StatelessWidget {
-  const NewsDetailScreen({Key? key}) : super(key: key);
+  final BeritaModel berita;
+  const NewsDetailScreen(
+    this.berita, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +28,9 @@ class NewsDetailScreen extends StatelessWidget {
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10)),
                   ),
-                  child: Image.network(
-                    'https://picsum.photos/200/300',
-                    fit: BoxFit.cover,
+                  child: FancyShimmerImage(
+                    imageUrl: Api.newsBaseFoto + '/' + berita.thumbnail!,
+                    boxFit: BoxFit.cover,
                   )),
               SafeArea(
                 child: Container(
@@ -97,72 +101,45 @@ class NewsDetailScreen extends StatelessWidget {
                                     width: 5,
                                   ),
                                   Text(
-                                    '19 Mei 2021',
+                                    formatCompleteDateToString(
+                                        berita.createdAt!)!,
                                     style: normalGrey1,
                                   ),
                                 ],
                               ),
                               SizedBox(height: 10),
                               SelectableText(
-                                'Judul',
+                                berita.judul ?? '',
                                 style: largeDark2,
                               ),
                               SizedBox(height: 10),
                               //LabelInput(_selectLabel),
                               Padding(
                                 padding: EdgeInsets.only(bottom: 30),
-                                child: SelectableText(
-                                  'tes',
-                                  style: normalDark1,
+                                child: Html(
+                                  data: berita.konten,
                                 ),
                               ),
-                              Wrap(
-                                spacing: 10.0,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Chip(
-                                      label: Text(
-                                        'Dokumen.pdf',
-                                        style: normalLight1,
+                              Wrap(spacing: 10.0, children: [
+                                ...berita.lampiran!
+                                    .map(
+                                      (doc) => GestureDetector(
+                                        onTap: () {},
+                                        child: Chip(
+                                          label: Text(
+                                            doc.file!,
+                                            style: normalLight1,
+                                          ),
+                                          avatar: Icon(
+                                            Icons.download,
+                                            color: Colors.white,
+                                          ),
+                                          backgroundColor: primaryColor,
+                                        ),
                                       ),
-                                      avatar: Icon(
-                                        Icons.download,
-                                        color: Colors.white,
-                                      ),
-                                      backgroundColor: primaryColor,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Chip(
-                                      label: Text(
-                                        'Dokumen.pdf',
-                                        style: normalLight1,
-                                      ),
-                                      avatar: Icon(
-                                        Icons.download,
-                                        color: Colors.white,
-                                      ),
-                                      backgroundColor: primaryColor,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Chip(
-                                      label: Text(
-                                        'Dokumen.pdf',
-                                        style: normalLight1,
-                                      ),
-                                      avatar: Icon(
-                                        Icons.download,
-                                        color: Colors.white,
-                                      ),
-                                      backgroundColor: primaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                    )
+                                    .toList(),
+                              ]),
                               //ImageInput(_selectImage),
                             ],
                           ),

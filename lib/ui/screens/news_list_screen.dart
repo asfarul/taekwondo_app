@@ -27,15 +27,25 @@ class NewsListScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    if (index == 0) return firstItemCard(size, index);
-                    return itemCard(index);
-                  },
-                ),
+                Consumer<NewsProvider>(builder: (context, prov, child) {
+                  if (prov.berita == null) {
+                    prov.loadBerita(context);
+                  }
+                  if (prov.berita != null) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: prov.berita?.length,
+                      itemBuilder: (context, index) {
+                        if (index == 0) return firstItemCard(size, index);
+                        return itemCard(index);
+                      },
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
               ],
             )),
       ),
@@ -45,7 +55,7 @@ class NewsListScreen extends StatelessWidget {
   Widget itemCard(int index) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => NewsDetailScreen());
+        // Get.to(() => NewsDetailScreen());
       },
       child: Container(
           margin: EdgeInsets.symmetric(

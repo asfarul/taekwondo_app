@@ -158,7 +158,8 @@ class HomeScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    Get.to(() => NewsDetailScreen());
+                                    Get.to(() =>
+                                        NewsDetailScreen(prov.berita[index]));
                                   },
                                   child: Container(
                                     margin: EdgeInsets.all(10.0),

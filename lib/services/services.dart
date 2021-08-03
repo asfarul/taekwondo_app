@@ -17,3 +17,4 @@ part 'auth_services.dart';
 part 'logging_interceptor.dart';
 part 'club_services.dart';
 part 'settings_services.dart';
+part 'news_services.dart';
