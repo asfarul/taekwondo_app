@@ -393,7 +393,7 @@ class HomeScreen extends StatelessWidget {
   Widget melamarClubCard({String namaKlub = ''}) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => JoinClubScreen());
+        // Get.to(() => JoinClubScreen());
         // Get.to(() => KlubScreen());
       },
       child: Container(

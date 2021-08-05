@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.taekwondo_app">
+    
+  <uses-permission android:name="android.permission.INTERNET" />
+
    <application
         android:label="taekwondo_app"
         android:icon="@mipmap/ic_launcher">
-
         <!-- TODO: Add your API key here -->
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyAKKXLB6hP7p5AT2Ok4PeXuko-2NiUIyXU"/>

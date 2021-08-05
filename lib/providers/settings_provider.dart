@@ -43,4 +43,10 @@ class SettingsProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void setAfterJoin(ClubModel? club) {
+    _clubStatus = melamar;
+    _myClub = club;
+    notifyListeners();
+  }
 }

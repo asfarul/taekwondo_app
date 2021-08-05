@@ -113,34 +113,75 @@ class JoinClubScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.all(3),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            gradient: LinearGradient(
-                                colors: [
-                                  primaryColor,
-                                  midColor,
-                                  secondaryColor
-                                ],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight),
-                          ),
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(8),
-                              onTap: () {},
-                              child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
-                                  child: Text(
-                                    'Gabung',
-                                    style: normalLight1,
-                                  )),
-                            ),
-                          ),
-                        ),
+                        Consumer<JoinClubProvider>(
+                            builder: (context, prov, child) {
+                          if (!prov.isLoading)
+                            return Container(
+                              margin: EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                gradient: LinearGradient(
+                                    colors: [
+                                      primaryColor,
+                                      midColor,
+                                      secondaryColor
+                                    ],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight),
+                              ),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(8),
+                                  onTap: () {
+                                    ClubModel club = ClubModel(
+                                        id: joinClubProv.selectedMarker!.id,
+                                        nama: joinClubProv
+                                            .selectedMarker!.namaKlub,
+                                        deskripsi: joinClubProv
+                                            .selectedMarker!.deskripsi,
+                                        coordinat: joinClubProv
+                                            .selectedMarker!.coordinat,
+                                        alamat:
+                                            joinClubProv.selectedMarker!.alamat,
+                                        foto: joinClubProv
+                                            .selectedMarker!.urlFoto,
+                                        pelatih: UserModel(
+                                            id: joinClubProv
+                                                .selectedMarker!.pelatih!.id,
+                                            alamat: joinClubProv.selectedMarker!
+                                                .pelatih!.alamat,
+                                            email: joinClubProv
+                                                .selectedMarker!.pelatih!.email,
+                                            jenisKelamin: joinClubProv
+                                                .selectedMarker!
+                                                .pelatih!
+                                                .jenisKelamin,
+                                            name: joinClubProv
+                                                .selectedMarker!.pelatih!.name,
+                                            noHp: joinClubProv
+                                                .selectedMarker!.pelatih!.noHp,
+                                            roles: null,
+                                            tglLahir: null,
+                                            urlFoto: joinClubProv
+                                                .selectedMarker!
+                                                .pelatih!
+                                                .urlFoto));
+                                    prov.joinClub(club, context);
+                                  },
+                                  child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+                                      child: Text(
+                                        'Gabung',
+                                        style: normalLight1,
+                                      )),
+                                ),
+                              ),
+                            );
+
+                          return CircularProgressIndicator();
+                        }),
                       ],
                     ),
                   ),

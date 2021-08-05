@@ -29,6 +29,9 @@ class JoinClubProvider extends ChangeNotifier {
   bool _isLoadSuccess = false;
   bool get isLoadSuccess => _isLoadSuccess;
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   Future<void> intiMap(BuildContext context) async {
     _cameraPosition = CameraPosition(
       target: LatLng(pontianakLatitude, pontianakLongitude),
@@ -86,6 +89,33 @@ class JoinClubProvider extends ChangeNotifier {
               }),
         );
       });
+    }
+  }
+
+  void joinClub(ClubModel? club, BuildContext context) async {
+    if (club != null) {
+      _isLoading = true;
+      notifyListeners();
+      dio.FormData data = dio.FormData.fromMap({
+        'club_id': club.id,
+      });
+      var response = await clubServices.joinClub(context, data);
+      if (response != null) {
+        if (response['meta']['code'] == 200) {
+          Provider.of<SettingsProvider>(context, listen: false)
+              .setAfterJoin(club);
+          Get.offAll(() => HomeScreen());
+          WidgetHelpers.showSuccessDialog(context,
+              title: 'Berhasil',
+              message:
+                  'Anda sedang melakukan permohonan untuk bergabung ke klub ${club.nama}.',
+              confirmText: 'OK', onConfirm: () {
+            Get.back();
+          });
+        }
+      }
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }

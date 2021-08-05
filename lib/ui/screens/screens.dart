@@ -13,6 +13,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:taekwondo_app/configs/api.dart';
 import 'package:taekwondo_app/models/applications.dart';
 import 'package:taekwondo_app/models/berita_model.dart';
+import 'package:taekwondo_app/models/club.dart';
+import 'package:taekwondo_app/models/club_model.dart';
 import 'package:taekwondo_app/models/user_model.dart';
 import 'package:taekwondo_app/providers/providers.dart';
 import 'package:taekwondo_app/ui/components/my_shimmer.dart';

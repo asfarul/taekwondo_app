@@ -76,4 +76,33 @@ class WidgetHelpers {
       ],
     ).show();
   }
+
+  static showSuccessDialog(
+    BuildContext context, {
+    @required String? title,
+    @required String? message,
+    @required String? confirmText,
+    @required VoidCallback? onConfirm,
+  }) {
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: title ?? '',
+      desc: message,
+      style: AlertStyle(titleStyle: normalDark2, descStyle: normalDark1),
+      buttons: [
+        DialogButton(
+          child: Text(
+            confirmText ?? 'OK',
+            style: normalLight1,
+          ),
+          onPressed: onConfirm,
+          gradient: LinearGradient(
+              colors: [primaryColor, midColor, secondaryColor],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight),
+        ),
+      ],
+    ).show();
+  }
 }

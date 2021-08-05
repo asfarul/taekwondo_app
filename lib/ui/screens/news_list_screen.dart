@@ -37,8 +37,9 @@ class NewsListScreen extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: prov.berita?.length,
                       itemBuilder: (context, index) {
-                        if (index == 0) return firstItemCard(size, index);
-                        return itemCard(index);
+                        if (index == 0)
+                          return firstItemCard(size, prov.berita![index]);
+                        return itemCard(prov.berita![index]);
                       },
                     );
                   }
@@ -52,10 +53,10 @@ class NewsListScreen extends StatelessWidget {
     );
   }
 
-  Widget itemCard(int index) {
+  Widget itemCard(BeritaModel berita) {
     return GestureDetector(
       onTap: () {
-        // Get.to(() => NewsDetailScreen());
+        Get.to(() => NewsDetailScreen(berita));
       },
       child: Container(
           margin: EdgeInsets.symmetric(
@@ -73,13 +74,13 @@ class NewsListScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Judul Berita Lorem Ipsum Dolor Sit Amet',
+                      berita.judul ?? '',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: normalDark2.copyWith(color: Colors.blueGrey),
                     ),
                     Text(
-                      'Senin, 26 Februari 2021',
+                      formatCompleteDateToString(berita.createdAt!) ?? '',
                       style: smallDark1,
                     )
                   ],
@@ -87,11 +88,11 @@ class NewsListScreen extends StatelessWidget {
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
-                child: Image.network(
-                  'https://randomuser.me/api/portraits/women/72.jpg',
+                child: FancyShimmerImage(
+                  imageUrl: Api.newsBaseFoto + '/' + berita.thumbnail!,
                   height: 80.0,
                   width: 80.0,
-                  fit: BoxFit.cover,
+                  boxFit: BoxFit.cover,
                 ),
               ),
             ],
@@ -99,61 +100,67 @@ class NewsListScreen extends StatelessWidget {
     );
   }
 
-  Widget firstItemCard(Size size, int index) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-      child: Stack(
-        children: [
-          Container(
-            width: size.width * 0.95,
-            height: 230,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                image: DecorationImage(
-                    image: NetworkImage('https://picsum.photos/200/300'),
-                    fit: BoxFit.cover)),
-          ),
-          Container(
-            width: size.width * 0.95,
-            height: 230,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.black.withOpacity(0.3),
+  Widget firstItemCard(Size size, BeritaModel berita) {
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => NewsDetailScreen(berita));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+        child: Stack(
+          children: [
+            Container(
+              width: size.width * 0.95,
+              height: 230,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          Api.newsBaseFoto + '/' + berita.thumbnail!),
+                      fit: BoxFit.cover)),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [primaryColor, midColor, secondaryColor]),
-                  color: midColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+            Container(
+              width: size.width * 0.95,
+              height: 230,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.black.withOpacity(0.3),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [primaryColor, midColor, secondaryColor]),
+                    color: midColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Ini adalah berita pertama lur',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: normalLight1,
-                    ),
-                    Text(
-                      'Senin, 28 Februari 2021',
-                      style: smallLight1,
-                    ),
-                  ],
-                )),
-          ),
-        ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        berita.judul ?? '',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: normalLight1,
+                      ),
+                      Text(
+                        formatCompleteDateToString(berita.createdAt!) ?? '-',
+                        style: smallLight1,
+                      ),
+                    ],
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }
