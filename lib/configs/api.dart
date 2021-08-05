@@ -17,4 +17,5 @@ class Api {
   static final settings = base + version + 'user/settings';
   static final berita = base + version + 'berita';
   static final gabungClub = base + version + 'club/join';
+  static final notif = base + version + 'application?club_id=';
 }

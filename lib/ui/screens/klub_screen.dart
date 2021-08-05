@@ -182,28 +182,34 @@ class KlubScreen extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Get.to(() => NotificationScreen());
-                              },
-                              icon: Icon(
-                                Icons.notifications,
-                                color: Colors.white,
+                        if (isPelatih)
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => NotificationScreen());
+                                },
+                                child: Badge(
+                                  badgeContent: Text('4'),
+                                  badgeColor: Colors.grey[400]!,
+                                  child: Icon(
+                                    Icons.notifications,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Get.to(() => KlubEditScreen());
-                              },
-                              icon: Icon(
-                                Icons.settings,
-                                color: Colors.white,
+                              SizedBox(width: 10),
+                              IconButton(
+                                onPressed: () {
+                                  Get.to(() => KlubEditScreen());
+                                },
+                                icon: Icon(
+                                  Icons.settings,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                          ],
-                        )
+                            ],
+                          )
                       ],
                     ),
                   ),

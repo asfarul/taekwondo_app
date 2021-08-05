@@ -1,23 +1,24 @@
-import 'data.dart';
-import 'meta.dart';
+import 'package:taekwondo_app/models/club_model.dart';
+import 'package:taekwondo_app/models/user_model.dart';
 
-class Notification {
-  Meta? meta;
-  Data? data;
+class NotificationModel {
+  String? id;
+  UserModel? user;
+  ClubModel? club;
+  DateTime? tglMelamar;
 
-  Notification({this.meta, this.data});
+  NotificationModel({
+    required this.id,
+    required this.user,
+    required this.club,
+    required this.tglMelamar,
+  });
 
-  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
-        meta: json['meta'] == null
-            ? null
-            : Meta.fromJson(json['meta'] as Map<String, dynamic>),
-        data: json['data'] == null
-            ? null
-            : Data.fromJson(json['data'] as Map<String, dynamic>),
+  factory NotificationModel.fromJson(Map<String, dynamic> json) =>
+      NotificationModel(
+        id: json['id'],
+        user: UserModel.fromJson(json['user']),
+        club: ClubModel.fromJson(json['club']),
+        tglMelamar: DateTime.parse(json['tanggal_melamar']),
       );
-
-  Map<String, dynamic> toJson() => {
-        'meta': meta?.toJson(),
-        'data': data?.toJson(),
-      };
 }

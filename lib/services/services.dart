@@ -18,3 +18,4 @@ part 'logging_interceptor.dart';
 part 'club_services.dart';
 part 'settings_services.dart';
 part 'news_services.dart';
+part 'notif_services.dart';
