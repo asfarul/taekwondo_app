@@ -1,7 +1,14 @@
 part of 'screens.dart';
 
 class KlubScreen extends StatelessWidget {
-  const KlubScreen({Key? key}) : super(key: key);
+  final ClubModel club;
+  final bool isPelatih;
+
+  const KlubScreen(
+    this.club, {
+    this.isPelatih = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,12 +120,20 @@ class KlubScreen extends StatelessWidget {
                     Container(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
-                        child: Image.network(
-                          'https://randomuser.me/api/portraits/women/72.jpg',
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        ),
+                        child: club.foto == null
+                            ? Image.asset(
+                                'assets/images/user-default.jpeg',
+                                height: 80,
+                                width: 80,
+                                fit: BoxFit.cover,
+                              )
+                            : FancyShimmerImage(
+                                imageUrl: Api.clubBaseFoto + '/' + club.foto!,
+                                errorWidget: Icon(Icons.broken_image),
+                                height: 80,
+                                width: 80,
+                                boxFit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     SizedBox(width: 15),
@@ -132,11 +147,11 @@ class KlubScreen extends StatelessWidget {
                             style: normalLight1,
                           ),
                           Text(
-                            'Klub A',
+                            club.nama ?? '',
                             style: largeLight2,
                           ),
                           Text(
-                            'Jl. Husein Hamzah Gg. Hasanah No. 5A',
+                            club.alamat ?? '',
                             style: smallLight1,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
@@ -205,6 +220,7 @@ class KlubScreen extends StatelessWidget {
             _header(),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -224,7 +240,7 @@ class KlubScreen extends StatelessWidget {
                     style: normalDark3.copyWith(color: Colors.grey),
                   ),
                   Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget mattis metus, ac faucibus urna. Nullam maximus nunc id tempus lacinia. Etiam accumsan ipsum nec nisl sollicitudin condimentum. Morbi faucibus, lorem vestibulum cursus rutrum, sapien orci ornare mi, et placerat eros neque nec nisl. Suspendisse in ullamcorper velit. Quisque eu vestibulum neque. Etiam dignissim hendrerit enim, eget dignissim tellus. Quisque viverra in nisl quis dignissim. Vestibulum congue tempor elit, sit amet cursus nibh facilisis eget.',
+                    club.deskripsi ?? '-',
                     style: normalDark1,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -279,11 +295,12 @@ class KlubScreen extends StatelessWidget {
                           Container(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(60),
-                              child: Image.network(
-                                'https://randomuser.me/api/portraits/women/72.jpg',
+                              child: FancyShimmerImage(
+                                imageUrl: Api.clubBaseFoto + '/',
+                                errorWidget: Icon(Icons.broken_image),
                                 height: 50,
                                 width: 50,
-                                fit: BoxFit.cover,
+                                boxFit: BoxFit.cover,
                               ),
                             ),
                           ),

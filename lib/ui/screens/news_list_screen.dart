@@ -114,11 +114,13 @@ class NewsListScreen extends StatelessWidget {
               width: size.width * 0.95,
               height: 230,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          Api.newsBaseFoto + '/' + berita.thumbnail!),
-                      fit: BoxFit.cover)),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FancyShimmerImage(
+                    imageUrl: Api.newsBaseFoto + '/' + berita.thumbnail!),
+              ),
             ),
             Container(
               width: size.width * 0.95,

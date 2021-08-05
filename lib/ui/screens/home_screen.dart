@@ -96,6 +96,8 @@ class HomeScreen extends StatelessWidget {
                   Consumer<SettingsProvider>(builder: (context, prov, child) {
                     if (prov.clubStatus == aktif) {
                       return clubCard(
+                          club: prov.myClub,
+                          isPelatih: prov.role == 'Pelatih',
                           nama: prov.myClub!.nama!,
                           kategori: prov.kategori ?? '-',
                           status: prov.role ?? '-');
@@ -274,11 +276,20 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget clubCard(
-      {String nama = '', String status = '', String kategori = ''}) {
+      {ClubModel? club,
+      bool? isPelatih,
+      String nama = '',
+      String status = '',
+      String kategori = ''}) {
     return GestureDetector(
       onTap: () {
         // Get.to(() => JoinClubScreen());
-        Get.to(() => KlubScreen());
+        if (club != null && isPelatih != null) {
+          Get.to(() => KlubScreen(
+                club,
+                isPelatih: isPelatih,
+              ));
+        }
       },
       child: Container(
         margin: EdgeInsets.symmetric(
