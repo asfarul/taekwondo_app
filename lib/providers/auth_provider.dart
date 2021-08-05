@@ -109,11 +109,6 @@ class AuthProvider with ChangeNotifier {
         });
   }
 
-  void logout() {
-    _credentials.erase();
-    Get.offAll(StartScreen());
-  }
-
   String? registerValidator(
     String nama,
     String email,
@@ -174,5 +169,12 @@ class AuthProvider with ChangeNotifier {
 
   bool _isPhoneNumberValid(String noHp) {
     return noHp.length >= 10 && noHp.length < 14;
+  }
+
+  void logout(BuildContext context) {
+    _credentials.erase();
+    _pictureFile = null;
+    Provider.of<SettingsProvider>(context, listen: false).clearAll();
+    Get.offAll(StartScreen());
   }
 }

@@ -16,7 +16,7 @@ class JoinClubProvider extends ChangeNotifier {
 
   List<JoinClubResponseDataClubs?> _clubs = [];
 
-  String baseFotoURL = 'http://localhost:8000/images/clubs';
+  String baseFotoURL = Api.clubBaseFoto;
 
   String get clubFoto => _selectedMarker?.urlFoto ?? '';
 

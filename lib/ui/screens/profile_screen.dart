@@ -123,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
                         cancelText: 'Tidak',
                         onConfirm: () {
                           Provider.of<AuthProvider>(context, listen: false)
-                              .logout();
+                              .logout(context);
                         },
                         onCancel: () {
                           Get.back();

@@ -49,4 +49,13 @@ class SettingsProvider extends ChangeNotifier {
     _myClub = club;
     notifyListeners();
   }
+
+  void clearAll() {
+    _user = null;
+    _myClub = null;
+    _clubStatus = '';
+    _kategori = null;
+    _role = null;
+    _clubInfo = null;
+  }
 }

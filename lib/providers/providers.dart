@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:taekwondo_app/configs/api.dart';
 import 'package:taekwondo_app/models/berita_model.dart';
 import 'package:taekwondo_app/models/club_model.dart';
 import 'package:taekwondo_app/models/join_club_response.dart';
