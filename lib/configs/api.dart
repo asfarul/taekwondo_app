@@ -18,4 +18,6 @@ class Api {
   static final berita = base + version + 'berita';
   static final gabungClub = base + version + 'club/join';
   static final notif = base + version + 'application?club_id=';
+  static final accept = base + version + 'application/accept';
+  static final decline = base + version + 'application/decline';
 }

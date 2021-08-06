@@ -7,4 +7,20 @@ class NotifServices extends BaseServices {
       return response;
     }
   }
+
+  Future<dynamic> accept(BuildContext context, FormData data) async {
+    var response = await request(context, Api.accept, RequestType.POST,
+        useToken: true, data: data);
+    if (response != null) {
+      return response;
+    }
+  }
+
+  Future<dynamic> decline(BuildContext context, FormData data) async {
+    var response = await request(context, Api.decline, RequestType.POST,
+        useToken: true, data: data);
+    if (response != null) {
+      return response;
+    }
+  }
 }

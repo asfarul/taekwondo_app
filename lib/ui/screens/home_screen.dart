@@ -58,6 +58,8 @@ class HomeScreen extends StatelessWidget {
                                           imageUrl: Api.userBaseFoto +
                                               '/' +
                                               prov.user!.urlFoto!,
+                                          errorWidget:
+                                              Icon(Icons.broken_image_outlined),
                                           width: 64,
                                           height: 64,
                                           boxFit: BoxFit.cover,
@@ -251,6 +253,8 @@ class HomeScreen extends StatelessWidget {
                                                             .thumbnail!,
                                                     width: 290,
                                                     height: 180,
+                                                    errorWidget: Icon(Icons
+                                                        .broken_image_rounded),
                                                     boxFit: BoxFit.cover,
                                                   ),
                                                 ),

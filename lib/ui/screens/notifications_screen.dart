@@ -1,9 +1,12 @@
 part of 'screens.dart';
 
 class NotificationScreen extends StatelessWidget {
+  final String clubId;
+  NotificationScreen(this.clubId);
   @override
   Widget build(BuildContext context) {
-    final List<Applications> notifications = [];
+    Provider.of<NotifProvider>(context, listen: false)
+        .loadNotifications(context, clubId);
     return Scaffold(
       body: Stack(
         children: [
@@ -56,13 +59,30 @@ class NotificationScreen extends StatelessWidget {
                 // child ?? SizedBox(),
                 // notifications.isNotEmpty
                 //     ?
-                Expanded(
-                    child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return NotificationItem();
-                  },
-                ))
+                Expanded(child:
+                    Consumer<NotifProvider>(builder: (context, prov, child) {
+                  if (prov.notifications?.length == 0) {
+                    return Center(
+                      child: Text(
+                        'Tidak ada permohonan',
+                        style: normalDark1,
+                      ),
+                    );
+                  }
+                  if (!prov.isLoading) {
+                    return ListView.builder(
+                      itemCount: prov.notifications!.length,
+                      itemBuilder: (context, index) {
+                        return NotificationItem(
+                            prov.notifications![index], index);
+                      },
+                    );
+                  }
+
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }))
                 // : Expanded(
                 //     child: Center(
                 //       child: Column(

@@ -42,10 +42,10 @@ class WidgetHelpers {
     BuildContext context, {
     @required String? title,
     @required String? message,
-    @required String? confirmText,
-    @required String? cancelText,
+    String? confirmText,
+    String? cancelText,
     @required VoidCallback? onConfirm,
-    @required VoidCallback? onCancel,
+    VoidCallback? onCancel,
   }) {
     Alert(
       context: context,
@@ -59,7 +59,10 @@ class WidgetHelpers {
             cancelText ?? 'Batal',
             style: normalLight1,
           ),
-          onPressed: onCancel,
+          onPressed: onCancel ??
+              () {
+                Get.back();
+              },
           color: Colors.grey,
         ),
         DialogButton(

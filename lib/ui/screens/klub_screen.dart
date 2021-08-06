@@ -187,7 +187,7 @@ class KlubScreen extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => NotificationScreen());
+                                  Get.to(() => NotificationScreen(club.id!));
                                 },
                                 child: Badge(
                                   badgeContent: Text('4'),

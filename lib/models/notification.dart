@@ -17,8 +17,8 @@ class NotificationModel {
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(
         id: json['id'],
-        user: UserModel.fromJson(json['user']),
-        club: ClubModel.fromJson(json['club']),
+        user: json['user'] == null ? null : UserModel.fromJson(json['user']),
+        club: json['club'] == null ? null : ClubModel.fromJson(json['club']),
         tglMelamar: DateTime.parse(json['tanggal_melamar']),
       );
 }
