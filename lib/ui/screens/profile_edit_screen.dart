@@ -9,7 +9,6 @@ class ProfileEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     var authProvider = Provider.of<AuthProvider>(context, listen: false);
     TextEditingController _emailController =
         TextEditingController(text: user.email);
@@ -118,9 +117,9 @@ class ProfileEditScreen extends StatelessWidget {
           Positioned(
             bottom: 0,
             left: 0,
+            right: 0,
             child: Container(
               height: 40,
-              width: size.width * 1,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

@@ -37,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
               style: normalLight1,
             ),
             onPressed: () {
-              FocusScope.of(context).unfocus();
+              // FocusScope.of(context).unfocus();
               authProvider.register(context,
                   email: _emailController.text,
                   nama: _namaController.text,

@@ -2,10 +2,14 @@ part of 'screens.dart';
 
 class UserDetailScreen extends StatelessWidget {
   final UserModel? user;
+  final String? kategori;
+  final String? kelas;
   final bool isAtlet;
   final bool isPelatih;
   UserDetailScreen({
     required this.user,
+    this.kategori = '-',
+    this.kelas = '-',
     this.isAtlet = false,
     this.isPelatih = false,
     Key? key,
@@ -159,7 +163,7 @@ class UserDetailScreen extends StatelessWidget {
                       style: smallDark2,
                     ),
                     Text(
-                      'Kyorugi',
+                      kategori ?? '-',
                       style: largeDark1,
                     )
                   ],
@@ -184,7 +188,7 @@ class UserDetailScreen extends StatelessWidget {
                       style: smallDark2,
                     ),
                     Text(
-                      'Under 63 Kg ',
+                      kategori ?? '-',
                       style: largeDark1,
                     )
                   ],

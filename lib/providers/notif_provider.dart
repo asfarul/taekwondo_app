@@ -11,7 +11,6 @@ class NotifProvider extends ChangeNotifier {
 
   void loadNotifications(BuildContext context, String clubId) async {
     isLoading = true;
-    notifyListeners();
     var response =
         await _notifServices.getAllNotif(context, Api.notif + clubId);
     _notifications = [];

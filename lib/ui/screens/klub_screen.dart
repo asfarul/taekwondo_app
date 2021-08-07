@@ -14,7 +14,6 @@ class KlubScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<ClubProvider>(context, listen: false)
         .getNotifCount(context, club.id!);
-    final size = MediaQuery.of(context).size;
     String _jenisKelamin;
     String _kategoriId;
     String _kelasId;
@@ -92,14 +91,14 @@ class KlubScreen extends StatelessWidget {
     }
 
     Widget _header() => Container(
-          width: size.width * 1,
+          width: double.infinity,
           height: 250,
           child: Stack(
             children: [
               Container(
                 padding: EdgeInsets.only(
                     left: defaultMargin, right: defaultMargin, top: 30),
-                width: size.width * 1,
+                width: double.infinity,
                 height: 250,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -167,9 +166,9 @@ class KlubScreen extends StatelessWidget {
               Positioned(
                 top: 0,
                 left: 0,
+                right: 0,
                 child: SafeArea(
                   child: Container(
-                    width: size.width * 1,
                     padding: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
                     child: Row(
@@ -190,11 +189,16 @@ class KlubScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   Get.to(() => NotificationScreen(club.id!))!
-                                      .then((value) =>
-                                          Provider.of<ClubProvider>(context,
-                                                  listen: false)
-                                              .getNotifCount(
-                                                  context, club.id!));
+                                      .then(
+                                    (value) {
+                                      Provider.of<ClubProvider>(context,
+                                              listen: false)
+                                          .getNotifCount(context, club.id!);
+                                      Provider.of<ClubProvider>(context,
+                                              listen: false)
+                                          .getAllAtlet(context, club.id!);
+                                    },
+                                  );
                                 },
                                 child: Badge(
                                   badgeContent: Consumer<ClubProvider>(
@@ -212,7 +216,7 @@ class KlubScreen extends StatelessWidget {
                               SizedBox(width: 10),
                               IconButton(
                                 onPressed: () {
-                                  Get.to(() => KlubEditScreen());
+                                  Get.to(() => KlubEditScreen(club));
                                 },
                                 icon: Icon(
                                   Icons.settings,
@@ -284,79 +288,103 @@ class KlubScreen extends StatelessWidget {
                 ],
               ),
             ),
-            MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      // Get.to(() => UserDetailScreen());
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          bottom: 10,
-                          left: defaultMargin,
-                          right: defaultMargin),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: FancyShimmerImage(
-                                imageUrl: Api.clubBaseFoto + '/',
-                                errorWidget: Icon(Icons.broken_image),
-                                height: 50,
-                                width: 50,
-                                boxFit: BoxFit.cover,
+            Consumer<ClubProvider>(builder: (context, prov, child) {
+              if (prov.athletes == null) {
+                prov.getAllAtlet(context, club.id!);
+              }
+              if (prov.athletes != null)
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: prov.athletes!.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => UserDetailScreen(
+                              isAtlet: true,
+                              user: prov.athletes?[index].user,
+                              kategori: prov.athletes?[index].kategori?.nama,
+                              kelas: prov.athletes?[index].kelas?.nama,
+                              isPelatih: isPelatih,
+                            ));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            bottom: 10,
+                            left: defaultMargin,
+                            right: defaultMargin),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(60),
+                                child: prov.athletes?[index].user?.urlFoto ==
+                                        null
+                                    ? Image.asset(
+                                        'assets/images/user-default.jpeg',
+                                        width: 50,
+                                        height: 50,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : FancyShimmerImage(
+                                        imageUrl: Api.userBaseFoto +
+                                            '/' +
+                                            prov.athletes![index].user!
+                                                .urlFoto!,
+                                        errorWidget: Icon(Icons.broken_image),
+                                        height: 50,
+                                        width: 50,
+                                        boxFit: BoxFit.cover,
+                                      ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    prov.athletes?[index].user?.name ?? '-',
+                                    style: normalDark1,
+                                  ),
+                                  Text(
+                                    '${prov.athletes?[index].kategori?.nama ?? 'No Category'} | ${prov.athletes?[index].kelas?.nama ?? 'No Class'}',
+                                    style: normalGrey1.copyWith(
+                                        color: Colors.grey[600], fontSize: 13),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Row(
                               children: [
-                                Text(
-                                  'Membatu',
-                                  style: normalDark1,
+                                Icon(
+                                  Icons.bookmark,
+                                  color: grey,
                                 ),
                                 Text(
-                                  'Poomsae | Pria 69Kg',
-                                  style: normalGrey1.copyWith(
-                                      color: Colors.grey[600], fontSize: 13),
+                                  prov.athletes?[index].recordCount
+                                          .toString() ??
+                                      '-',
+                                  style: largeGrey2,
                                 )
                               ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.bookmark,
-                                color: grey,
-                              ),
-                              Text(
-                                '10',
-                                style: largeGrey2,
-                              )
-                            ],
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            )
+                    );
+                  },
+                );
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            })
           ],
         ),
       ),

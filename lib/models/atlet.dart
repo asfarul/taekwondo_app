@@ -7,6 +7,7 @@ class Atlet {
   Kelas? kelas;
   bool? status;
   DateTime tglBergabung;
+  int? recordCount;
 
   Atlet({
     required this.id,
@@ -15,6 +16,7 @@ class Atlet {
     required this.kelas,
     required this.status,
     required this.tglBergabung,
+    required this.recordCount,
   });
 
   factory Atlet.fromJson(Map<String, dynamic> json) => Atlet(
@@ -24,7 +26,8 @@ class Atlet {
           json['cateogry'] == null ? null : Kategori.fromJson(json['cateogry']),
       kelas: json['class'] == null ? null : Kelas.fromJson(json['class']),
       status: json['status'] == 1 ? true : false,
-      tglBergabung: DateTime.parse(json['tgl_bergabung'] as String));
+      tglBergabung: DateTime.parse(json['tgl_bergabung'] as String),
+      recordCount: json['records_count'] as int);
 }
 
 class Kategori {

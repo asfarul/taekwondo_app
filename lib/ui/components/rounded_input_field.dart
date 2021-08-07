@@ -11,7 +11,9 @@ class RoundedInputField extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onTap;
-  const RoundedInputField({
+  final formKey;
+
+  RoundedInputField({
     Key? key,
     this.value,
     this.hintText,
@@ -21,6 +23,7 @@ class RoundedInputField extends StatelessWidget {
     this.icon = Icons.person,
     this.onChanged,
     this.onTap,
+    this.formKey,
   }) : super(key: key);
 
   @override
@@ -31,6 +34,7 @@ class RoundedInputField extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: TextField(
+            key: formKey,
             onChanged: onChanged,
             enabled: isEnable,
             controller: controller,

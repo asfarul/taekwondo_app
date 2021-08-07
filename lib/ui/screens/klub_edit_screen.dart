@@ -1,11 +1,18 @@
 part of 'screens.dart';
 
 class KlubEditScreen extends StatelessWidget {
-  const KlubEditScreen({Key? key}) : super(key: key);
+  final ClubModel club;
+  KlubEditScreen(this.club);
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final _namaController = TextEditingController(text: club.nama ?? '');
+    final _alamatController = TextEditingController(text: club.alamat ?? '');
+    final _deskripsiController =
+        TextEditingController(text: club.deskripsi ?? '');
+
     Widget _header = Container(
       width: double.infinity,
       height: 280,
@@ -86,9 +93,9 @@ class KlubEditScreen extends StatelessWidget {
           Positioned(
             bottom: 0,
             left: 0,
+            right: 0,
             child: Container(
               height: 40,
-              width: size.width * 1,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -123,15 +130,21 @@ class KlubEditScreen extends StatelessWidget {
         child: Column(
           children: [
             _header,
-            RoundedInputField(hintText: "Nama Klub", icon: Icons.group),
+            RoundedInputField(
+              hintText: "Nama Klub",
+              icon: Icons.group,
+              controller: _namaController,
+            ),
             RoundedInputField(
               hintText: "Alamat",
               icon: Icons.location_on,
               textInputType: TextInputType.streetAddress,
+              controller: _alamatController,
             ),
             RoundedInputField(
               hintText: "Deskripsi",
               icon: Icons.info,
+              controller: _deskripsiController,
             ),
             SizedBox(height: defaultMargin * 2),
           ],
