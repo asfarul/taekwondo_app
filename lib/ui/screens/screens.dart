@@ -41,7 +41,7 @@ part 'news_detail_screen.dart';
 part 'profile_screen.dart';
 part 'profile_edit_screen.dart';
 part 'klub_screen.dart';
-part 'atlet_detail_screen.dart';
+part 'user_detail_screen.dart';
 part 'klub_edit_screen.dart';
 part 'notifications_screen.dart';
 part 'join_club_screen.dart';

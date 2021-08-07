@@ -24,3 +24,4 @@ part 'join_club_provider.dart';
 part 'settings_provider.dart';
 part 'news_provider.dart';
 part 'notif_provider.dart';
+part 'club_provider.dart';

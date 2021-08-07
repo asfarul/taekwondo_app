@@ -12,6 +12,8 @@ class KlubScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ClubProvider>(context, listen: false)
+        .getNotifCount(context, club.id!);
     final size = MediaQuery.of(context).size;
     String _jenisKelamin;
     String _kategoriId;
@@ -187,10 +189,19 @@ class KlubScreen extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => NotificationScreen(club.id!));
+                                  Get.to(() => NotificationScreen(club.id!))!
+                                      .then((value) =>
+                                          Provider.of<ClubProvider>(context,
+                                                  listen: false)
+                                              .getNotifCount(
+                                                  context, club.id!));
                                 },
                                 child: Badge(
-                                  badgeContent: Text('4'),
+                                  badgeContent: Consumer<ClubProvider>(
+                                      builder: (context, prov, _) => Text(
+                                            prov.count.toString(),
+                                            style: smallDark2,
+                                          )),
                                   badgeColor: Colors.grey[400]!,
                                   child: Icon(
                                     Icons.notifications,
@@ -283,7 +294,7 @@ class KlubScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Get.to(() => AtletDetailScreen());
+                      // Get.to(() => UserDetailScreen());
                     },
                     child: Container(
                       margin: EdgeInsets.only(

@@ -9,7 +9,6 @@ class Api {
   static final userBaseFoto = base + 'images/users';
   static final clubBaseFoto = base + 'images/clubs';
   static final newsBaseFoto = base + 'images/posts';
-
   static final login = base + version + "login";
   static final register = base + version + "register";
   static final club = base + version + 'club';
@@ -20,4 +19,6 @@ class Api {
   static final notif = base + version + 'application?club_id=';
   static final accept = base + version + 'application/accept';
   static final decline = base + version + 'application/decline';
+  static final notifCount = base + version + 'notifcount';
+  static final allAtlet = base + version + 'atlet';
 }

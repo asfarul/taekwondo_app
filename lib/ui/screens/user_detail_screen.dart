@@ -1,7 +1,15 @@
 part of 'screens.dart';
 
-class AtletDetailScreen extends StatelessWidget {
-  const AtletDetailScreen({Key? key}) : super(key: key);
+class UserDetailScreen extends StatelessWidget {
+  final UserModel? user;
+  final bool isAtlet;
+  final bool isPelatih;
+  UserDetailScreen({
+    required this.user,
+    this.isAtlet = false,
+    this.isPelatih = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +51,16 @@ class AtletDetailScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: Icon(
-                          Icons.edit,
-                          color: Colors.white,
+                      if (isPelatih)
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
@@ -59,17 +68,24 @@ class AtletDetailScreen extends StatelessWidget {
               Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
-                  child: Image.network(
-                    'https://randomuser.me/api/portraits/women/72.jpg',
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ),
+                  child: user?.urlFoto == null
+                      ? Image.asset(
+                          'assets/images/user-default.jpeg',
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        )
+                      : FancyShimmerImage(
+                          imageUrl: Api.userBaseFoto + '/' + user!.urlFoto!,
+                          height: 100,
+                          width: 100,
+                          boxFit: BoxFit.cover,
+                        ),
                 ),
               ),
               SizedBox(height: 15),
               Text(
-                'Mas Fatah Bin Lucinta Luna',
+                user?.name ?? '-',
                 style: largeLight1,
               ),
               // Text(
@@ -111,11 +127,12 @@ class AtletDetailScreen extends StatelessWidget {
                 'Informasi Pribadi',
                 style: normalDark2,
               ),
-              _infoField('Email', 'ayylmao@email.com'),
-              _infoField('Jenis Kelamin', 'Laki-Laki'),
-              _infoField('Tanggal Lahir (Umur)', '19/05/2021 (22 Tahun)'),
-              _infoField('No HP', '082328312738'),
-              _infoField('Alamat', 'Jl. Aspal Gg. Kutu Kupret No. 404'),
+              _infoField('Email', user?.email ?? '-'),
+              _infoField('Jenis Kelamin', user?.jenisKelamin ?? '-'),
+              _infoField('Tanggal Lahir (Umur)',
+                  '${formatDateToStringValue(user!.tglLahir!) ?? '-'} (${calculateAge(user!.tglLahir!)})'),
+              _infoField('No HP', user?.noHp ?? '-'),
+              _infoField('Alamat', user?.alamat ?? '-'),
             ],
           ),
         );
@@ -176,66 +193,66 @@ class AtletDetailScreen extends StatelessWidget {
             ),
           ],
         );
+    Widget _infoRecord() => Container(
+          padding:
+              EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
+          width: double.infinity,
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Riwayat Kompetisi (3)',
+                      style: normalDark2,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Icon(Icons.add),
+                    ),
+                  ],
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Icon(
+                      Icons.bookmark,
+                      color: primaryColor,
+                      size: 40,
+                    ),
+                    title: Text(
+                      'UFC Grand Championship 2077',
+                      style: normalDark2,
+                    ),
+                    subtitle: Text(
+                      '16 Februari 2077 - 18 Februari 2077 | Medali Emas',
+                      style: smallDark1,
+                    ),
+                    trailing:
+                        IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                  );
+                },
+              )
+            ],
+          ),
+        );
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             _header(),
-            _infoAtlet(),
+            if (isAtlet) _infoAtlet(),
             _infoPribadi(),
             SizedBox(height: 10),
-            Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
-              width: double.infinity,
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: defaultMargin),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Riwayat Kompetisi (3)',
-                          style: normalDark2,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Icon(
-                          Icons.bookmark,
-                          color: primaryColor,
-                          size: 40,
-                        ),
-                        title: Text(
-                          'UFC Grand Championship 2077',
-                          style: normalDark2,
-                        ),
-                        subtitle: Text(
-                          '16 Februari 2077 - 18 Februari 2077 | Medali Emas',
-                          style: smallDark1,
-                        ),
-                        trailing: IconButton(
-                            onPressed: () {}, icon: Icon(Icons.delete)),
-                      );
-                    },
-                  )
-                ],
-              ),
-            )
+            if (isAtlet) _infoRecord(),
           ],
         ),
       ),

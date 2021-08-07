@@ -16,4 +16,20 @@ class ClubServices extends BaseServices {
       return response;
     }
   }
+
+  Future<dynamic> getAthletes(BuildContext context, var param) async {
+    var response = await request(context, Api.allAtlet, RequestType.GET,
+        useToken: true, param: param);
+    if (response != null) {
+      return response;
+    }
+  }
+
+  Future<int?> getNotifCount(BuildContext context, var param) async {
+    var response = await request(context, Api.notifCount, RequestType.GET,
+        useToken: true, param: param);
+    if (response != null) {
+      return response['data']?['count'] as int;
+    }
+  }
 }
