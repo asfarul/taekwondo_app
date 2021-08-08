@@ -50,6 +50,11 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setClub(ClubModel club) {
+    _myClub = club;
+    notifyListeners();
+  }
+
   void clearAll() {
     _user = null;
     _myClub = null;

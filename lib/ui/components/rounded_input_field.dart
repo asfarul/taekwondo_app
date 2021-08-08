@@ -34,7 +34,6 @@ class RoundedInputField extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: TextField(
-            key: formKey,
             onChanged: onChanged,
             enabled: isEnable,
             controller: controller,

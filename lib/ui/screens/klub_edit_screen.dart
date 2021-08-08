@@ -56,36 +56,83 @@ class KlubEditScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Container(
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(60),
-                      child: Image.network(
-                        'https://randomuser.me/api/portraits/women/72.jpg',
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-                        child: Container(
-                          color: Colors.white,
-                          width: 30,
-                          height: 30,
-                          child: Icon(
-                            Icons.camera_alt,
-                            size: 20,
-                            color: darkGrey,
+              GestureDetector(
+                onTap: () {
+                  Provider.of<ClubProvider>(context, listen: false)
+                      .pickImage(context);
+                },
+                child: Consumer<ClubProvider>(
+                  builder: (context, prov, child) {
+                    if (club.foto != null && prov.pictureFile == null) {
+                      return Container(
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: FancyShimmerImage(
+                                imageUrl: Api.clubBaseFoto + '/' + club.foto!,
+                                height: 100,
+                                width: 100,
+                                boxFit: BoxFit.cover,
+                              ),
+                            ),
+                            child ?? SizedBox(),
+                          ],
+                        ),
+                      );
+                    }
+                    if (prov.pictureFile != null) {
+                      return Container(
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Image.file(
+                                prov.pictureFile!,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child ?? SizedBox(),
+                          ],
+                        ),
+                      );
+                    }
+                    return Container(
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(60),
+                            child: Image.asset(
+                              'assets/images/user-default.jpeg',
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
                           ),
+                          child ?? SizedBox(),
+                        ],
+                      ),
+                    );
+                  },
+                  child: Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(60),
+                      child: Container(
+                        color: Colors.white,
+                        width: 30,
+                        height: 30,
+                        child: Icon(
+                          Icons.camera_alt,
+                          size: 20,
+                          color: darkGrey,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -116,13 +163,24 @@ class KlubEditScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GradientRoundedButton(
-              child: Text(
-                'Simpan Perubahan',
-                style: normalLight1,
-              ),
-              onPressed: () {},
-            ),
+            Consumer<ClubProvider>(builder: (context, prov, child) {
+              if (prov.isLoading) {
+                return CircularProgressIndicator();
+              }
+              return GradientRoundedButton(
+                child: Text(
+                  'Simpan Perubahan',
+                  style: normalLight1,
+                ),
+                onPressed: () {
+                  prov.updateClub(context,
+                      clubId: club.id!,
+                      nama: _namaController.text,
+                      alamat: _alamatController.text,
+                      deskripsi: _deskripsiController.text);
+                },
+              );
+            }),
           ],
         ),
       ),

@@ -14,6 +14,7 @@ class KlubScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<ClubProvider>(context, listen: false)
         .getNotifCount(context, club.id!);
+    // final size = MediaQuery.of(context).size;
     String _jenisKelamin;
     String _kategoriId;
     String _kelasId;
@@ -119,47 +120,53 @@ class KlubScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: club.foto == null
-                            ? Image.asset(
-                                'assets/images/user-default.jpeg',
-                                height: 80,
-                                width: 80,
-                                fit: BoxFit.cover,
-                              )
-                            : FancyShimmerImage(
-                                imageUrl: Api.clubBaseFoto + '/' + club.foto!,
-                                errorWidget: Icon(Icons.broken_image),
-                                height: 80,
-                                width: 80,
-                                boxFit: BoxFit.cover,
-                              ),
+                      child: Consumer<SettingsProvider>(
+                        builder: (context, prov, child) => ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: prov.myClub?.foto == null
+                              ? Image.asset(
+                                  'assets/images/user-default.jpeg',
+                                  height: 80,
+                                  width: 80,
+                                  fit: BoxFit.cover,
+                                )
+                              : FancyShimmerImage(
+                                  imageUrl: Api.clubBaseFoto +
+                                      '/' +
+                                      prov.myClub!.foto!,
+                                  errorWidget: Icon(Icons.broken_image),
+                                  height: 80,
+                                  width: 80,
+                                  boxFit: BoxFit.cover,
+                                ),
+                        ),
                       ),
                     ),
                     SizedBox(width: 15),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Klub Taekwondo',
-                            style: normalLight1,
-                          ),
-                          Text(
-                            club.nama ?? '',
-                            style: largeLight2,
-                          ),
-                          Text(
-                            club.alamat ?? '',
-                            style: smallLight1,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    )
+                    Consumer<SettingsProvider>(builder: (context, prov, child) {
+                      return Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Klub Taekwondo',
+                              style: normalLight1,
+                            ),
+                            Text(
+                              prov.myClub?.nama ?? '',
+                              style: largeLight2,
+                            ),
+                            Text(
+                              prov.myClub?.alamat ?? '',
+                              style: smallLight1,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      );
+                    })
                   ],
                 ),
               ),
@@ -253,20 +260,22 @@ class KlubScreen extends StatelessWidget {
                 ],
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Deskripsi Klub :',
-                    style: normalDark3.copyWith(color: Colors.grey),
-                  ),
-                  Text(
-                    club.deskripsi ?? '-',
-                    style: normalDark1,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+              child: Consumer<SettingsProvider>(
+                builder: (context, prov, child) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Deskripsi Klub :',
+                      style: normalDark3.copyWith(color: Colors.grey),
+                    ),
+                    Text(
+                      prov.myClub?.deskripsi ?? '-',
+                      style: normalDark1,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
