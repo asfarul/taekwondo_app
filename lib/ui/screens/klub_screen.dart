@@ -14,22 +14,9 @@ class KlubScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<ClubProvider>(context, listen: false)
         .getNotifCount(context, club.id!);
+
+    var clubProv = Provider.of<ClubProvider>(context, listen: false);
     // final size = MediaQuery.of(context).size;
-    String _jenisKelamin;
-    String _kategoriId;
-    String _kelasId;
-
-    void onSelectSex(String val) {
-      _jenisKelamin = val;
-    }
-
-    void onSelectCategory(String val) {
-      _kategoriId = val;
-    }
-
-    void onSelectClass(String val) {
-      _kelasId = val;
-    }
 
     _showDialog() async {
       await showDialog(
@@ -39,20 +26,118 @@ class KlubScreen extends StatelessWidget {
             title: Text('Cari Atlet'),
             contentPadding: const EdgeInsets.all(16.0),
             content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  RoundedInputField(
-                    hintText: 'Cari berdasarkan nama',
-                  ),
-                  RoundedDropdownInput(onSelectCategory, null,
-                      jenisKelaminValues, 'Pilih Kategori'),
-                  RoundedDropdownInput(onSelectSex, null, jenisKelaminValues,
-                      'Pilih Jenis Kelamin'),
-                  RoundedDropdownInput(
-                      onSelectClass, null, jenisKelaminValues, 'Pilih Kelas'),
-                ],
+              child: Consumer<ClubProvider>(
+                builder: (context, prov, child) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    RoundedInputField(
+                      hintText: 'Cari berdasarkan nama',
+                    ),
+                    TextFieldContainer(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<Kategori>(
+                          style: normalGrey1,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                          },
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: primaryColor,
+                          ),
+                          items: prov.categories!
+                              .map(
+                                (value) => DropdownMenuItem(
+                                  child: Text(
+                                    value.nama!,
+                                    style: normalDark1,
+                                  ),
+                                  value: value,
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (val) {
+                            prov.onSelectCategory(val!);
+                          },
+                          isExpanded: true,
+                          value: prov.selectedKategori,
+                          hint: Text(
+                            'Pilih Kategori',
+                            style: normalDark1.copyWith(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextFieldContainer(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          style: normalGrey1,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                          },
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: primaryColor,
+                          ),
+                          items: jenisKelaminValues
+                              .map(
+                                (value) => DropdownMenuItem(
+                                  child: Text(
+                                    value,
+                                    style: normalDark1,
+                                  ),
+                                  value: value,
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (val) {
+                            prov.onSelectSex(val!);
+                          },
+                          isExpanded: true,
+                          value: prov.jenisKelamin,
+                          hint: Text(
+                            'Pilih Jenis Kelamin',
+                            style: normalDark1.copyWith(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextFieldContainer(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<Kelas>(
+                          style: normalGrey1,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                          },
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: primaryColor,
+                          ),
+                          items: prov.filteredClasses!
+                              .map(
+                                (value) => DropdownMenuItem(
+                                  child: Text(
+                                    value.nama!,
+                                    style: normalDark1,
+                                  ),
+                                  value: value,
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (val) {
+                            prov.onSelectClass(val!);
+                          },
+                          isExpanded: true,
+                          value: prov.selectedKelas,
+                          hint: Text(
+                            'Pilih Kategori',
+                            style: normalDark1.copyWith(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             actions: <Widget>[
@@ -301,6 +386,9 @@ class KlubScreen extends StatelessWidget {
               if (prov.athletes == null) {
                 prov.getAllAtlet(context, club.id!);
               }
+              if (prov.classes == null) {
+                prov.initAthleteSettings(context);
+              }
               if (prov.athletes != null)
                 return ListView.builder(
                   shrinkWrap: true,
@@ -311,6 +399,7 @@ class KlubScreen extends StatelessWidget {
                       onTap: () {
                         Get.to(() => UserDetailScreen(
                               isAtlet: true,
+                              atlet: prov.athletes?[index],
                               user: prov.athletes?[index].user,
                               kategori: prov.athletes?[index].kategori?.nama,
                               kelas: prov.athletes?[index].kelas?.nama,

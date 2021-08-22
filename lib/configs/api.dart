@@ -25,6 +25,7 @@ class Api {
   static final allAtlet = base + version + 'atlet';
   static final updateAtlet = base + version + 'atlet/update';
   static final recordsAtlet = base + version + 'atlet/records';
+  static final settingsAtlet = base + version + 'atlet/settings';
   static final tambahRecord = base + version + 'atlet/records/add';
   static final hapusRecord = base + version + 'atlet/records/delete';
 }

@@ -40,4 +40,12 @@ class ClubServices extends BaseServices {
       return response['data']?['count'] as int;
     }
   }
+
+  Future<dynamic> getAthleteSettings(BuildContext context) async {
+    var response = await request(context, Api.settingsAtlet, RequestType.GET,
+        useToken: true);
+    if (response != null) {
+      return response;
+    }
+  }
 }

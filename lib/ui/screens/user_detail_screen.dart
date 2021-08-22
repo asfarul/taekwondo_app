@@ -2,6 +2,7 @@ part of 'screens.dart';
 
 class UserDetailScreen extends StatelessWidget {
   final UserModel? user;
+  final Atlet? atlet;
   final String? kategori;
   final String? kelas;
   final bool isAtlet;
@@ -9,6 +10,7 @@ class UserDetailScreen extends StatelessWidget {
   UserDetailScreen({
     required this.user,
     this.kategori = '-',
+    this.atlet,
     this.kelas = '-',
     this.isAtlet = false,
     this.isPelatih = false,
@@ -58,7 +60,7 @@ class UserDetailScreen extends StatelessWidget {
                       if (isPelatih)
                         IconButton(
                           onPressed: () {
-                            Get.back();
+                            Get.to(() => AtletEditScreen(atlet!));
                           },
                           icon: Icon(
                             Icons.edit,

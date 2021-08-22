@@ -26,6 +26,7 @@ class SettingsProvider extends ChangeNotifier {
 
   void initSettings(BuildContext context) async {
     var response = await _settingServices.getSettingsData(context);
+
     if (response != null) {
       if (response['data'] != null) {
         _user = UserModel.fromJson(response['data']['user']);

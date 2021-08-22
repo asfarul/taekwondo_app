@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:taekwondo_app/models/atlet.dart';
 import 'package:taekwondo_app/shared/shared.dart';
 import 'package:taekwondo_app/ui/components/text_field_container.dart';
 
-class RoundedDropdownInput extends StatefulWidget {
+class KategoriDropdown extends StatefulWidget {
   final Function onSelected;
   final String? initValue;
-  final List<String> data;
+  final List<Kategori> data;
   final String hint;
-  const RoundedDropdownInput(
+  const KategoriDropdown(
     this.onSelected,
     this.initValue,
     this.data,
@@ -16,10 +17,10 @@ class RoundedDropdownInput extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RoundedDropdownInputState createState() => _RoundedDropdownInputState();
+  _KategoriDropdownState createState() => _KategoriDropdownState();
 }
 
-class _RoundedDropdownInputState extends State<RoundedDropdownInput> {
+class _KategoriDropdownState extends State<KategoriDropdown> {
   dynamic _selectedValue;
 
   @override
@@ -47,7 +48,7 @@ class _RoundedDropdownInputState extends State<RoundedDropdownInput> {
               .map(
                 (value) => DropdownMenuItem(
                   child: Text(
-                    value,
+                    value.nama!,
                     style: normalDark1,
                   ),
                   value: value,

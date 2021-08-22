@@ -12,8 +12,72 @@ class ClubProvider extends ChangeNotifier {
   File? _pictureFile;
   File? get pictureFile => _pictureFile;
 
+  List<Kelas>? _classes;
+  List<Kelas>? get classes => _classes;
+
+  List<Kelas>? _filteredClasses;
+  List<Kelas>? get filteredClasses => _filteredClasses;
+
+  List<Kategori>? _categories;
+  List<Kategori>? get categories => _categories;
+
+  Kategori? _selectedKategori;
+  Kategori? get selectedKategori => _selectedKategori;
+
+  Kelas? _selectedKelas;
+  Kelas? get selectedKelas => _selectedKelas;
+
+  String? _jenisKelamin;
+  String? get jenisKelamin => _jenisKelamin;
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  void onSelectSex(String val) {
+    _jenisKelamin = val;
+    _selectedKelas = null;
+    _filteredClasses = _classes;
+    if (_selectedKategori != null) {
+      _filteredClasses = _classes
+              ?.where((element) =>
+                  element.kategoriId == _selectedKategori!.id &&
+                  (element.jenisKelamin == _jenisKelamin ||
+                      element.jenisKelamin == null))
+              .toList() ??
+          [];
+    } else {
+      _filteredClasses = _classes
+              ?.where((element) =>
+                  element.jenisKelamin == val || element.jenisKelamin == null)
+              .toList() ??
+          [];
+    }
+    notifyListeners();
+  }
+
+  void onSelectCategory(Kategori val) {
+    _selectedKategori = val;
+    _selectedKelas = null;
+    if (_jenisKelamin != null) {
+      _filteredClasses = _classes
+              ?.where((element) =>
+                  element.kategoriId == val.id &&
+                  (element.jenisKelamin == _jenisKelamin ||
+                      element.jenisKelamin == null))
+              .toList() ??
+          [];
+    } else {
+      _filteredClasses =
+          _classes?.where((element) => element.kategoriId == val.id).toList() ??
+              [];
+    }
+    notifyListeners();
+  }
+
+  void onSelectClass(Kelas val) {
+    _selectedKelas = val;
+    notifyListeners();
+  }
 
   void getNotifCount(BuildContext context, String clubId) async {
     var param = {
@@ -24,6 +88,19 @@ class ClubProvider extends ChangeNotifier {
     if (response != null) {
       _count = response;
       notifyListeners();
+    }
+  }
+
+  void initAthleteSettings(BuildContext context) async {
+    var response = await _clubServices.getAthleteSettings(context);
+    if (response != null) {
+      if (response['data'] != null) {
+        _classes = List<Kelas>.from(
+            response['data']['classes'].map((x) => Kelas.fromJson(x)));
+        _categories = List<Kategori>.from(
+            response['data']['categories'].map((x) => Kategori.fromJson(x)));
+        _filteredClasses = _classes;
+      }
     }
   }
 
