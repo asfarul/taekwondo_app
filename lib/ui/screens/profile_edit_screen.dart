@@ -9,7 +9,6 @@ class ProfileEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var authProvider = Provider.of<AuthProvider>(context, listen: false);
     TextEditingController _emailController =
         TextEditingController(text: user.email);
     TextEditingController _namaController =
