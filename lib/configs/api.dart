@@ -23,4 +23,8 @@ class Api {
   static final decline = base + version + 'application/decline';
   static final notifCount = base + version + 'notifcount';
   static final allAtlet = base + version + 'atlet';
+  static final updateAtlet = base + version + 'atlet/update';
+  static final recordsAtlet = base + version + 'atlet/records';
+  static final tambahRecord = base + version + 'atlet/records/add';
+  static final hapusRecord = base + version + 'atlet/records/delete';
 }

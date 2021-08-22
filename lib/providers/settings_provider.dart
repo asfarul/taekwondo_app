@@ -55,6 +55,11 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setUser(UserModel user) {
+    _user = user;
+    notifyListeners();
+  }
+
   void clearAll() {
     _user = null;
     _myClub = null;

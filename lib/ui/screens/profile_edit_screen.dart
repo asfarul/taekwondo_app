@@ -73,43 +73,84 @@ class ProfileEditScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Container(
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(60),
-                      child: user.urlFoto == null
-                          ? Image.asset(
-                              'assets/images/user-default.jpeg',
-                              fit: BoxFit.cover,
-                              width: 100,
-                              height: 100,
-                            )
-                          : FancyShimmerImage(
-                              imageUrl: Api.userBaseFoto + '/' + user.urlFoto!,
-                              width: 100,
-                              height: 100,
-                              boxFit: BoxFit.cover,
+              GestureDetector(
+                onTap: () {
+                  Provider.of<AuthProvider>(context, listen: false)
+                      .pickImage(context);
+                },
+                child: Consumer<AuthProvider>(
+                  builder: (context, prov, child) {
+                    if (user.urlFoto != null && prov.pictureFile == null) {
+                      return Container(
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: FancyShimmerImage(
+                                imageUrl:
+                                    Api.userBaseFoto + '/' + user.urlFoto!,
+                                height: 100,
+                                width: 100,
+                                boxFit: BoxFit.cover,
+                              ),
                             ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-                        child: Container(
-                          color: Colors.white,
-                          width: 30,
-                          height: 30,
-                          child: Icon(
-                            Icons.camera_alt,
-                            size: 20,
-                            color: darkGrey,
+                            child ?? SizedBox(),
+                          ],
+                        ),
+                      );
+                    }
+                    if (prov.pictureFile != null) {
+                      return Container(
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Image.file(
+                                prov.pictureFile!,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child ?? SizedBox(),
+                          ],
+                        ),
+                      );
+                    }
+                    return Container(
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(60),
+                            child: Image.asset(
+                              'assets/images/user-default.jpeg',
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
                           ),
+                          child ?? SizedBox(),
+                        ],
+                      ),
+                    );
+                  },
+                  child: Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(60),
+                      child: Container(
+                        color: Colors.white,
+                        width: 30,
+                        height: 30,
+                        child: Icon(
+                          Icons.camera_alt,
+                          size: 20,
+                          color: darkGrey,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -140,13 +181,26 @@ class ProfileEditScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GradientRoundedButton(
-              child: Text(
-                'Simpan Perubahan',
-                style: normalLight1,
-              ),
-              onPressed: () {},
-            ),
+            Consumer<AuthProvider>(builder: (context, prov, child) {
+              if (prov.isLoading) {
+                return CircularProgressIndicator();
+              }
+              return GradientRoundedButton(
+                child: Text(
+                  'Simpan Perubahan',
+                  style: normalLight1,
+                ),
+                onPressed: () {
+                  prov.updateProfile(context,
+                      nama: _namaController.text,
+                      email: _emailController.text,
+                      jenisKelamin: _jenisKelamin!,
+                      tglLahir: _tglLahir!,
+                      noHp: _noHPController.text,
+                      alamat: _alamatController.text);
+                },
+              );
+            }),
           ],
         ),
       ),

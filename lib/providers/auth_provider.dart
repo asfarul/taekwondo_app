@@ -139,6 +139,31 @@ class AuthProvider with ChangeNotifier {
     return null;
   }
 
+  String? updateValidator(
+    String nama,
+    String email,
+    String? jk,
+    String? tglLahir,
+    String noHP,
+    String alamat,
+  ) {
+    if (nama.length < 1 ||
+        email.length < 1 ||
+        jk == null ||
+        tglLahir == null ||
+        noHP.length < 1 ||
+        alamat.length < 1) {
+      return 'Mohon untuk mengisi seluruh data';
+    }
+    if (!_isEmailValid(email)) {
+      return 'Email yang anda masukkan tidak valid';
+    }
+    if (!_isPhoneNumberValid(noHP)) {
+      return 'Nomor handphone yang anda masukkan tidak valid';
+    }
+    return null;
+  }
+
   void pickImage(BuildContext context) async {
     final picker = ImagePicker();
     var pickedImage =
@@ -158,6 +183,56 @@ class AuthProvider with ChangeNotifier {
       return 'Email tidak valid';
     }
     return null;
+  }
+
+  void updateProfile(
+    BuildContext context, {
+    required String nama,
+    required String email,
+    required String jenisKelamin,
+    required String tglLahir,
+    required String noHp,
+    required String alamat,
+  }) async {
+    String? errorMessage =
+        updateValidator(nama, email, jenisKelamin, tglLahir, noHp, alamat);
+    if (errorMessage != null) {
+      WidgetHelpers.snackbar(context, SnackbarType.warning,
+          title: 'Perhatian!', message: errorMessage.toString());
+      _isLoading = false;
+      return;
+    }
+
+    _isLoading = true;
+    notifyListeners();
+
+    dio.FormData data = dio.FormData.fromMap({
+      'name': nama,
+      'email': email,
+      'alamat': alamat,
+      'tgl_lahir': tglLahir,
+      'no_hp': noHp,
+      'jenis_kelamin': jenisKelamin,
+      'url_foto': _pictureFile == null
+          ? null
+          : await dio.MultipartFile.fromFile(_pictureFile!.path,
+              filename: _pictureFile?.path.split('/').last),
+    });
+
+    var response = await authServices.updateUser(context, data);
+
+    if (response != null) {
+      _pictureFile = null;
+      Get.back();
+      Get.back();
+      WidgetHelpers.snackbar(context, SnackbarType.success,
+          title: 'Perhatian!', message: 'Profile berhasil diupdate!');
+      //update setting user
+      UserModel user = UserModel.fromJson(response['data']['user']);
+      Provider.of<SettingsProvider>(context, listen: false).setUser(user);
+    }
+    _isLoading = false;
+    notifyListeners();
   }
 
   bool _isEmailValid(String email) {

@@ -26,4 +26,13 @@ class AuthServices extends BaseServices {
       return response;
     }
   }
+
+  Future<dynamic> updateUser(BuildContext context, FormData data) async {
+    var response = await request(context, Api.updateUser, RequestType.POST,
+        data: data, useToken: true);
+
+    if (response != null) {
+      return response;
+    }
+  }
 }
