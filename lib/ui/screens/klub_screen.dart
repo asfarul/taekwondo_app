@@ -19,6 +19,9 @@ class KlubScreen extends StatelessWidget {
     var clubProv = Provider.of<ClubProvider>(context, listen: false);
     // final size = MediaQuery.of(context).size;
 
+    if (clubProv.athletes != null) {
+      clubProv.resetFilter(true);
+    }
     _showDialog() async {
       await showDialog(
         context: context,
@@ -152,7 +155,8 @@ class KlubScreen extends StatelessWidget {
                         style: normalLight1,
                       ),
                       onPressed: () {
-                        clubProv.resetFilter();
+                        clubProv.resetFilter(false);
+                        _namaController.clear();
                         Get.back();
                       },
                       color: grey,

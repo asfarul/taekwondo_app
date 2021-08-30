@@ -82,13 +82,14 @@ class ClubProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void resetFilter() {
+  void resetFilter(bool isInit) {
     _selectedKategori = null;
     _selectedKelas = null;
     _jenisKelamin = null;
     _filteredAthletes = _athletes;
 
-    notifyListeners();
+    if (!isInit) notifyListeners();
+    // notifyListeners();
   }
 
   void doFilter({String nama = ''}) {
@@ -107,8 +108,9 @@ class ClubProvider extends ChangeNotifier {
 
     if (_selectedKategori != null) {
       _filteredAthletes = _filteredAthletes
-          ?.where(
-              (element) => element.kategori?.nama == _selectedKategori!.nama)
+          ?.where((element) => element.kategori == null
+              ? false
+              : element.kategori!.nama == _selectedKategori!.nama)
           .toList();
     }
 
@@ -120,7 +122,9 @@ class ClubProvider extends ChangeNotifier {
 
     if (_selectedKelas != null) {
       _filteredAthletes = _filteredAthletes
-          ?.where((element) => element.kelas!.nama == _selectedKelas!.nama)
+          ?.where((element) => element.kelas == null
+              ? false
+              : element.kelas!.nama == _selectedKelas!.nama)
           .toList();
     }
 
