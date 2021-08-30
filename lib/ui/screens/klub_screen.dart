@@ -12,6 +12,7 @@ class KlubScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _namaController = TextEditingController();
     Provider.of<ClubProvider>(context, listen: false)
         .getNotifCount(context, club.id!);
 
@@ -33,6 +34,7 @@ class KlubScreen extends StatelessWidget {
                   children: [
                     RoundedInputField(
                       hintText: 'Cari berdasarkan nama',
+                      controller: _namaController,
                     ),
                     TextFieldContainer(
                       child: DropdownButtonHideUnderline(
@@ -146,10 +148,11 @@ class KlubScreen extends StatelessWidget {
                   Flexible(
                     child: DialogButton(
                       child: Text(
-                        'Batal',
+                        'Reset',
                         style: normalLight1,
                       ),
                       onPressed: () {
+                        clubProv.resetFilter();
                         Get.back();
                       },
                       color: grey,
@@ -161,7 +164,10 @@ class KlubScreen extends StatelessWidget {
                         'Cari',
                         style: normalLight1,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        clubProv.doFilter(nama: _namaController.text);
+                        Get.back();
+                      },
                       gradient: LinearGradient(
                           colors: [primaryColor, midColor, secondaryColor],
                           begin: Alignment.centerLeft,
@@ -389,20 +395,21 @@ class KlubScreen extends StatelessWidget {
               if (prov.classes == null) {
                 prov.initAthleteSettings(context);
               }
-              if (prov.athletes != null)
+              if (prov.filteredAthletes != null)
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: prov.athletes!.length,
+                  itemCount: prov.filteredAthletes!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
                         Get.to(() => UserDetailScreen(
                               isAtlet: true,
-                              atlet: prov.athletes?[index],
-                              user: prov.athletes?[index].user,
-                              kategori: prov.athletes?[index].kategori?.nama,
-                              kelas: prov.athletes?[index].kelas?.nama,
+                              atlet: prov.filteredAthletes?[index],
+                              user: prov.filteredAthletes?[index].user,
+                              kategori:
+                                  prov.filteredAthletes?[index].kategori?.nama,
+                              kelas: prov.filteredAthletes?[index].kelas?.nama,
                               isPelatih: isPelatih,
                             ));
                       },
@@ -422,7 +429,8 @@ class KlubScreen extends StatelessWidget {
                             Container(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
-                                child: prov.athletes?[index].user?.urlFoto ==
+                                child: prov.filteredAthletes?[index].user
+                                            ?.urlFoto ==
                                         null
                                     ? Image.asset(
                                         'assets/images/user-default.jpeg',
@@ -433,7 +441,7 @@ class KlubScreen extends StatelessWidget {
                                     : FancyShimmerImage(
                                         imageUrl: Api.userBaseFoto +
                                             '/' +
-                                            prov.athletes![index].user!
+                                            prov.filteredAthletes![index].user!
                                                 .urlFoto!,
                                         errorWidget: Icon(Icons.broken_image),
                                         height: 50,
@@ -448,11 +456,12 @@ class KlubScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    prov.athletes?[index].user?.name ?? '-',
+                                    prov.filteredAthletes?[index].user?.name ??
+                                        '-',
                                     style: normalDark1,
                                   ),
                                   Text(
-                                    '${prov.athletes?[index].kategori?.nama ?? 'No Category'} | ${prov.athletes?[index].kelas?.nama ?? 'No Class'}',
+                                    '${prov.filteredAthletes?[index].kategori?.nama ?? 'No Category'} | ${prov.filteredAthletes?[index].kelas?.nama ?? 'No Class'}',
                                     style: normalGrey1.copyWith(
                                         color: Colors.grey[600], fontSize: 13),
                                   )
@@ -466,7 +475,7 @@ class KlubScreen extends StatelessWidget {
                                   color: grey,
                                 ),
                                 Text(
-                                  prov.athletes?[index].recordCount
+                                  prov.filteredAthletes?[index].recordCount
                                           .toString() ??
                                       '-',
                                   style: largeGrey2,

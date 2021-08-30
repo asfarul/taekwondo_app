@@ -7,6 +7,9 @@ class ClubProvider extends ChangeNotifier {
   List<Atlet>? _athletes;
   List<Atlet>? get athletes => _athletes;
 
+  List<Atlet>? _filteredAthletes;
+  List<Atlet>? get filteredAthletes => _filteredAthletes;
+
   ClubServices _clubServices = ClubServices();
 
   File? _pictureFile;
@@ -79,6 +82,69 @@ class ClubProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resetFilter() {
+    _selectedKategori = null;
+    _selectedKelas = null;
+    _jenisKelamin = null;
+    _filteredAthletes = _athletes;
+
+    notifyListeners();
+  }
+
+  void doFilter({String nama = ''}) {
+    if (_athletes != null) {
+      _filteredAthletes = _athletes;
+    } else {
+      _filteredAthletes = [];
+    }
+
+    if (nama.isNotEmpty) {
+      _filteredAthletes = _athletes
+          ?.where((element) =>
+              element.user!.name!.toLowerCase().contains(nama.toLowerCase()))
+          .toList();
+    }
+
+    if (_selectedKategori != null) {
+      _filteredAthletes = _filteredAthletes
+          ?.where(
+              (element) => element.kategori?.nama == _selectedKategori!.nama)
+          .toList();
+    }
+
+    if (_jenisKelamin != null) {
+      _filteredAthletes = _filteredAthletes
+          ?.where((element) => element.user!.jenisKelamin == _jenisKelamin!)
+          .toList();
+    }
+
+    if (_selectedKelas != null) {
+      _filteredAthletes = _filteredAthletes
+          ?.where((element) => element.kelas!.nama == _selectedKelas!.nama)
+          .toList();
+    }
+
+    print(_filteredAthletes);
+
+    notifyListeners();
+    // _filteredAthletes = _athletes?.where((element) {
+    //       if (nama.isNotEmpty) {
+    //       )
+    //       }
+    //       return false;
+    //       // if (_selectedKelas != null) {
+    //       //   if (_jenisKelamin != null) {
+    //       //     return element.user?.jenisKelamin == _jenisKelamin &&
+    //       //         element.kelas?.nama == _selectedKelas!.nama &&
+    //       //         element.kategori?.nama == _selectedKategori!.nama;
+    //       //   }
+    //       //   return element.kelas?.nama == _selectedKelas!.nama;
+    //       // }
+    //       // return true;
+    //     }).toList() ??
+    //     [];
+  }
+
   void getNotifCount(BuildContext context, String clubId) async {
     var param = {
       'club_id': clubId,
@@ -113,6 +179,7 @@ class ClubProvider extends ChangeNotifier {
     if (response != null) {
       _athletes = List<Atlet>.from(
           response['data']['athletes'].map((x) => Atlet.fromJson(x)));
+      _filteredAthletes = _athletes;
       notifyListeners();
     }
   }
