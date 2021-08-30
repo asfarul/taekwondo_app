@@ -23,7 +23,7 @@ class Atlet {
       id: json['id'] as String,
       user: json['user'] == null ? null : UserModel.fromJson(json['user']),
       kategori:
-          json['cateogry'] == null ? null : Kategori.fromJson(json['cateogry']),
+          json['category'] == null ? null : Kategori.fromJson(json['category']),
       kelas: json['class'] == null ? null : Kelas.fromJson(json['class']),
       status: json['status'] == 1 ? true : false,
       tglBergabung: DateTime.parse(json['tgl_bergabung'] as String),

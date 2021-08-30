@@ -190,7 +190,7 @@ class UserDetailScreen extends StatelessWidget {
                       style: smallDark2,
                     ),
                     Text(
-                      kategori ?? '-',
+                      kelas ?? '-',
                       style: largeDark1,
                     )
                   ],

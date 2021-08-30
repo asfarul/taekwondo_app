@@ -48,4 +48,12 @@ class ClubServices extends BaseServices {
       return response;
     }
   }
+
+  Future<dynamic> updateAtlet(BuildContext context, FormData data) async {
+    var response = await request(context, Api.updateAtlet, RequestType.POST,
+        data: data, useToken: true);
+    if (response != null) {
+      return response;
+    }
+  }
 }

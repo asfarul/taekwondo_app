@@ -9,17 +9,15 @@ class AtletEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? _kategori;
-    String? _kelas;
-
-    void onSelectDate(String val) {
-      _kategori = val;
-    }
-
-    void onSelectSex(String val) {
-      _kelas = val;
-    }
-
+    var atletProv = Provider.of<AtletProvider>(context, listen: false);
+    atletProv.resetAll();
+    atletProv.atlet = atlet;
+    // if (atlet.kategori != null) {
+    //   atletProv.onSelectCategory(atlet.kategori!);
+    // }
+    // if (atlet.kelas != null) {
+    //   atletProv.onSelectClass(atlet.kelas!);
+    // }
     Widget _header = Container(
       width: double.infinity,
       height: 280,
@@ -67,32 +65,25 @@ class AtletEditScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  Provider.of<AuthProvider>(context, listen: false)
-                      .pickImage(context);
-                },
-                child: atlet.user?.urlFoto != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-                        child: FancyShimmerImage(
-                          imageUrl:
-                              Api.userBaseFoto + '/' + atlet.user!.urlFoto!,
-                          height: 100,
-                          width: 100,
-                          boxFit: BoxFit.cover,
-                        ),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-                        child: Image.asset(
-                          'assets/images/user-default.jpeg',
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
+              atlet.user?.urlFoto != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(60),
+                      child: FancyShimmerImage(
+                        imageUrl: Api.userBaseFoto + '/' + atlet.user!.urlFoto!,
+                        height: 100,
+                        width: 100,
+                        boxFit: BoxFit.cover,
                       ),
-              ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(60),
+                      child: Image.asset(
+                        'assets/images/user-default.jpeg',
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
             ],
           ),
           Positioned(
@@ -121,7 +112,7 @@ class AtletEditScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Consumer<AuthProvider>(builder: (context, prov, child) {
+            Consumer<AtletProvider>(builder: (context, prov, child) {
               if (prov.isLoading) {
                 return CircularProgressIndicator();
               }
@@ -130,7 +121,9 @@ class AtletEditScreen extends StatelessWidget {
                   'Simpan Perubahan',
                   style: normalLight1,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  prov.updateAtlet(context);
+                },
               );
             }),
           ],
@@ -140,8 +133,88 @@ class AtletEditScreen extends StatelessWidget {
         child: Column(
           children: [
             _header,
-            RoundedDropdownInput(
-                onSelectSex, _kelas, jenisKelaminValues, 'Pilih Jenis Kelamin'),
+            Consumer<AtletProvider>(builder: (context, prov, child) {
+              if (atletProv.categories == null) {
+                atletProv.initAthleteSettings(context);
+              }
+              if (atletProv.categories != null) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TextFieldContainer(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<Kategori>(
+                          style: normalGrey1,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                          },
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: primaryColor,
+                          ),
+                          items: prov.categories!
+                              .map(
+                                (value) => DropdownMenuItem(
+                                  child: Text(
+                                    value.nama!,
+                                    style: normalDark1,
+                                  ),
+                                  value: value,
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (val) {
+                            prov.onSelectCategory(val!);
+                          },
+                          isExpanded: true,
+                          value: prov.selectedKategori,
+                          hint: Text(
+                            'Pilih Kategori',
+                            style: normalDark1.copyWith(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextFieldContainer(
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<Kelas>(
+                          style: normalGrey1,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                          },
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: primaryColor,
+                          ),
+                          items: prov.filteredClasses!
+                              .map(
+                                (value) => DropdownMenuItem(
+                                  child: Text(
+                                    value.nama!,
+                                    style: normalDark1,
+                                  ),
+                                  value: value,
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (val) {
+                            prov.onSelectClass(val!);
+                          },
+                          isExpanded: true,
+                          value: prov.selectedKelas,
+                          hint: Text(
+                            'Pilih Kategori',
+                            style: normalDark1.copyWith(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return Center(child: CircularProgressIndicator());
+            }),
             SizedBox(height: defaultMargin * 2),
           ],
         ),
