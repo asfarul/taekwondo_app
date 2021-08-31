@@ -54,13 +54,19 @@ class AtletProvider extends ChangeNotifier {
         _categories = List<Kategori>.from(
             response['data']['categories'].map((x) => Kategori.fromJson(x)));
         _filteredClasses = _classes;
+        // if (atlet?.kategori != null) {
+        //   onSelectCategory(atlet!.kategori!);
+        // }
+        // if (atlet?.kelas != null) {
+        //   selectedKelas = atlet!.kelas;
+        // }
         notifyListeners();
       }
     }
   }
 
   void updateAtlet(BuildContext context) async {
-    if (selectedKategori == null && selectedKelas == null) {
+    if (selectedKategori == null || selectedKelas == null) {
       WidgetHelpers.snackbar(context, SnackbarType.error,
           title: 'Gagal menyimpan perubahan',
           message: 'Mohon untuk memilih kategori dan kelas atlet');
@@ -77,6 +83,10 @@ class AtletProvider extends ChangeNotifier {
     var response = await _clubServices.updateAtlet(context, data);
 
     if (response != null) {
+      print(response['data']['atlet']);
+      Atlet atlet = Atlet.fromJson(response['data']['atlet']);
+      // print(atlet);
+      Provider.of<ClubProvider>(context, listen: false).updateAtlet(atlet);
       Get.back();
       Get.back();
       WidgetHelpers.snackbar(context, SnackbarType.success,

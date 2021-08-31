@@ -12,6 +12,7 @@ class AtletEditScreen extends StatelessWidget {
     var atletProv = Provider.of<AtletProvider>(context, listen: false);
     atletProv.resetAll();
     atletProv.atlet = atlet;
+    atletProv.initAthleteSettings(context);
     // if (atlet.kategori != null) {
     //   atletProv.onSelectCategory(atlet.kategori!);
     // }
@@ -134,10 +135,10 @@ class AtletEditScreen extends StatelessWidget {
           children: [
             _header,
             Consumer<AtletProvider>(builder: (context, prov, child) {
-              if (atletProv.categories == null) {
-                atletProv.initAthleteSettings(context);
-              }
-              if (atletProv.categories != null) {
+              // if (prov.categories == null) {
+              //   prov.initAthleteSettings(context);
+              // }
+              if (prov.categories != null && prov.classes != null) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -169,10 +170,23 @@ class AtletEditScreen extends StatelessWidget {
                           },
                           isExpanded: true,
                           value: prov.selectedKategori,
-                          hint: Text(
-                            'Pilih Kategori',
-                            style: normalDark1.copyWith(color: Colors.grey),
-                          ),
+                          hint: atlet.kategori != null
+                              ? prov.selectedKelas != null
+                                  ? Text(
+                                      'Pilih Kategori',
+                                      style: normalDark1.copyWith(
+                                          color: Colors.grey),
+                                    )
+                                  : Text(
+                                      atlet.kategori!.nama!,
+                                      style: normalDark1.copyWith(
+                                          color: Colors.black),
+                                    )
+                              : Text(
+                                  'Pilih Kategori',
+                                  style:
+                                      normalDark1.copyWith(color: Colors.grey),
+                                ),
                         ),
                       ),
                     ),
@@ -203,10 +217,23 @@ class AtletEditScreen extends StatelessWidget {
                           },
                           isExpanded: true,
                           value: prov.selectedKelas,
-                          hint: Text(
-                            'Pilih Kategori',
-                            style: normalDark1.copyWith(color: Colors.grey),
-                          ),
+                          hint: atlet.kelas != null
+                              ? prov.selectedKategori != null
+                                  ? Text(
+                                      'Pilih Kelas',
+                                      style: normalDark1.copyWith(
+                                          color: Colors.grey),
+                                    )
+                                  : Text(
+                                      atlet.kelas!.nama!,
+                                      style: normalDark1.copyWith(
+                                          color: Colors.black),
+                                    )
+                              : Text(
+                                  'Pilih Kelas',
+                                  style:
+                                      normalDark1.copyWith(color: Colors.grey),
+                                ),
                         ),
                       ),
                     ),

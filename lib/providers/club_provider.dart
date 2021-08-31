@@ -238,4 +238,11 @@ class ClubProvider extends ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+  void updateAtlet(Atlet atlet) {
+    _athletes!.removeWhere((element) => element.id == atlet.id);
+    _athletes!.add(atlet);
+    _filteredAthletes = _athletes;
+    notifyListeners();
+  }
 }

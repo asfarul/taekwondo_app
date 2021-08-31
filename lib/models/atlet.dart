@@ -25,9 +25,9 @@ class Atlet {
       kategori:
           json['category'] == null ? null : Kategori.fromJson(json['category']),
       kelas: json['class'] == null ? null : Kelas.fromJson(json['class']),
-      status: json['status'] == 1 ? true : false,
+      status: json['status'] as bool?,
       tglBergabung: DateTime.parse(json['tgl_bergabung'] as String),
-      recordCount: json['records_count'] as int);
+      recordCount: json['records_count']);
 }
 
 class Kategori {
