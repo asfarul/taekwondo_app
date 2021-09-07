@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => NotifProvider()),
         ChangeNotifierProvider(create: (context) => ClubProvider()),
         ChangeNotifierProvider(create: (context) => AtletProvider()),
+        ChangeNotifierProvider(create: (context) => RecordProvider()),
       ],
       child: GetMaterialApp(
         title: 'SITAEK App',

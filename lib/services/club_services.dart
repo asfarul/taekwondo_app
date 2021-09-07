@@ -49,6 +49,15 @@ class ClubServices extends BaseServices {
     }
   }
 
+  Future<dynamic> getAthleteRecords(BuildContext context, String id) async {
+    var response = await request(
+        context, Api.recordsAtlet + '/' + id, RequestType.GET,
+        useToken: true);
+    if (response != null) {
+      return response;
+    }
+  }
+
   Future<dynamic> updateAtlet(BuildContext context, FormData data) async {
     var response = await request(context, Api.updateAtlet, RequestType.POST,
         data: data, useToken: true);

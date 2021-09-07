@@ -199,57 +199,7 @@ class UserDetailScreen extends StatelessWidget {
             ),
           ],
         );
-    Widget _infoRecord() => Container(
-          padding:
-              EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 10),
-          width: double.infinity,
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: defaultMargin),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Riwayat Kompetisi (3)',
-                      style: normalDark2,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Icon(Icons.add),
-                    ),
-                  ],
-                ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Icon(
-                      Icons.bookmark,
-                      color: primaryColor,
-                      size: 40,
-                    ),
-                    title: Text(
-                      'UFC Grand Championship 2077',
-                      style: normalDark2,
-                    ),
-                    subtitle: Text(
-                      '16 Februari 2077 - 18 Februari 2077 | Medali Emas',
-                      style: smallDark1,
-                    ),
-                    trailing:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
-                  );
-                },
-              )
-            ],
-          ),
-        );
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -258,7 +208,7 @@ class UserDetailScreen extends StatelessWidget {
             if (isAtlet) _infoAtlet(),
             _infoPribadi(),
             SizedBox(height: 10),
-            if (isAtlet) _infoRecord(),
+            if (isAtlet) RecordList(isPelatih, atlet!),
           ],
         ),
       ),

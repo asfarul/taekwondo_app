@@ -5,9 +5,13 @@ import 'package:taekwondo_app/utils/commons.dart';
 class RoundedDateInput extends StatefulWidget {
   final Function onSelectDate;
   final DateTime? initDate;
+  final String? hint;
+  final bool isBirthdate;
   const RoundedDateInput(
     this.onSelectDate,
-    this.initDate, {
+    this.initDate,
+    this.hint,
+    this.isBirthdate, {
     Key? key,
   }) : super(key: key);
 
@@ -35,7 +39,7 @@ class _RoundedDateInputState extends State<RoundedDateInput> {
         FocusScope.of(context).unfocus();
       },
       child: RoundedInputField(
-        hintText: 'Tanggal Lahir Anda',
+        hintText: widget.hint,
         icon: Icons.calendar_today,
         controller: _controller,
         isEnable: false,
@@ -49,7 +53,9 @@ class _RoundedDateInputState extends State<RoundedDateInput> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 80),
-      lastDate: DateTime.now(),
+      lastDate: widget.isBirthdate
+          ? DateTime.now()
+          : DateTime.now().add(Duration(days: 100)),
     );
 
     if (date != null) {

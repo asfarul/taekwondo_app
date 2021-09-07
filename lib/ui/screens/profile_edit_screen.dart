@@ -221,9 +221,10 @@ class ProfileEditScreen extends StatelessWidget {
             ),
             RoundedDropdownInput(onSelectSex, _jenisKelamin!,
                 jenisKelaminValues, 'Pilih Jenis Kelamin'),
-            RoundedDateInput(onSelectDate, user.tglLahir),
+            RoundedDateInput(
+                onSelectDate, user.tglLahir, 'Tanggal Lahir Anda', true),
             RoundedInputField(
-              hintText: "Nomor Handphone Anda",
+              hintText: "Nomor Handphone Ansda",
               controller: _noHPController,
               value: user.noHp,
               icon: Icons.phone,

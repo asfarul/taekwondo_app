@@ -109,7 +109,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               RoundedDropdownInput(
                   onSelectSex, null, jenisKelaminValues, 'Pilih Jenis Kelamin'),
-              RoundedDateInput(onSelectDate, null),
+              RoundedDateInput(onSelectDate, null, 'Tanggal Lahir Anda', true),
               RoundedInputField(
                 hintText: "Nomor Handphone Anda",
                 controller: _noHPController,
