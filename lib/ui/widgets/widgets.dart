@@ -18,6 +18,7 @@ import 'package:taekwondo_app/ui/components/rounded_input_field.dart';
 import 'package:taekwondo_app/ui/screens/screens.dart';
 import 'package:taekwondo_app/utils/commons.dart';
 import 'package:get/get.dart';
+import 'package:taekwondo_app/utils/widget_helpers.dart';
 
 part 'notification_item.dart';
 part 'map.dart';

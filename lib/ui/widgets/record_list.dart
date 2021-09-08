@@ -12,8 +12,8 @@ class RecordList extends StatelessWidget {
     var _namaController = TextEditingController();
     var _tingkatController = TextEditingController();
     var _peringkatController = TextEditingController();
-    var _tglMulai = null;
-    var _tglAkhir = null;
+    var _tglMulai;
+    var _tglAkhir;
 
     void onSelectDateAwal(String val) {
       _tglMulai = val;
@@ -51,56 +51,74 @@ class RecordList extends StatelessWidget {
                       onSelectDateAkhir, null, 'Tanggal Berakhir', false),
                   RoundedInputField(
                     hintText: 'Peringkat/medali yg diraih',
-                    controller: _namaController,
+                    controller: _peringkatController,
                     icon: Icons.star,
                   ),
                 ],
               ),
             ),
             actions: <Widget>[
-              Row(
-                children: [
-                  Flexible(
-                    child: DialogButton(
-                      child: Text(
-                        'Cancel',
-                        style: normalLight1,
-                      ),
-                      onPressed: () {
-                        Get.back();
-                      },
-                      color: grey,
-                    ),
-                  ),
-                  Flexible(
-                    child: DialogButton(
-                      child: Text(
-                        'Tambah',
-                        style: normalLight1,
-                      ),
-                      onPressed: () {
-                        var data = dio.FormData.fromMap(
-                          {
-                            'athlete_id': atlet.id,
-                            'nama': _namaController.text,
-                            'tingkat': _tingkatController.text,
-                            'peringkat': _peringkatController.text,
-                            'tanggal_dimulai': _tglMulai,
-                            'tanggal_berakhir': _tglAkhir,
+              Consumer<RecordProvider>(builder: (context, prov, child) {
+                if (prov.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return Row(
+                    children: [
+                      Flexible(
+                        child: DialogButton(
+                          child: Text(
+                            'Cancel',
+                            style: normalLight1,
+                          ),
+                          onPressed: () {
+                            Get.back();
                           },
-                        );
+                          color: grey,
+                        ),
+                      ),
+                      Flexible(
+                        child: DialogButton(
+                          child: Text(
+                            'Tambah',
+                            style: normalLight1,
+                          ),
+                          onPressed: () {
+                            if (_namaController.text.isEmpty ||
+                                _peringkatController.text.isEmpty ||
+                                _tingkatController.text.isEmpty ||
+                                _tglMulai == null ||
+                                _tglAkhir == null) {
+                              WidgetHelpers.snackbar(
+                                  context, SnackbarType.warning,
+                                  title: 'Gagal!',
+                                  message:
+                                      'Mohon untuk melengkapi semua field');
+                              return;
+                            }
+                            var data = dio.FormData.fromMap(
+                              {
+                                'athlete_id': atlet.id,
+                                'nama': _namaController.text,
+                                'tingkat': _tingkatController.text,
+                                'peringkat': _peringkatController.text,
+                                'tanggal_dimulai': _tglMulai,
+                                'tanggal_berakhir': _tglAkhir,
+                              },
+                            );
 
-                        recProv.addRecord(context, data);
-                        Get.back();
-                      },
-                      gradient: LinearGradient(
-                          colors: [primaryColor, midColor, secondaryColor],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight),
-                    ),
-                  ),
-                ],
-              ),
+                            recProv.addRecord(context, data, atlet.id!);
+                            // Get.back();
+                          },
+                          gradient: LinearGradient(
+                              colors: [primaryColor, midColor, secondaryColor],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              }),
             ],
           );
         },
@@ -158,8 +176,11 @@ class RecordList extends StatelessWidget {
                       '${item.tglMulai != null ? DateFormat('d/M/yyyy').format(item.tglMulai!) : ''} - ${item.tglAkhir != null ? DateFormat('d/M/yyyy').format(item.tglAkhir!) : ''} | Peringkat/Medali : ${item.peringkat ?? '-'}',
                       style: smallDark1,
                     ),
-                    trailing:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                    trailing: IconButton(
+                        onPressed: () {
+                          recProv.deleteRecord(context, item.id!, atlet.id!);
+                        },
+                        icon: Icon(Icons.delete)),
                   );
                 },
               );

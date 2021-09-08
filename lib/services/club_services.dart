@@ -58,6 +58,22 @@ class ClubServices extends BaseServices {
     }
   }
 
+  Future<dynamic> addRecord(BuildContext context, FormData data) async {
+    var response = await request(context, Api.tambahRecord, RequestType.POST,
+        data: data, useToken: true);
+    if (response != null) {
+      return response;
+    }
+  }
+
+  Future<dynamic> deleteRecord(BuildContext context, FormData data) async {
+    var response = await request(context, Api.hapusRecord, RequestType.POST,
+        data: data, useToken: true);
+    if (response != null) {
+      return response;
+    }
+  }
+
   Future<dynamic> updateAtlet(BuildContext context, FormData data) async {
     var response = await request(context, Api.updateAtlet, RequestType.POST,
         data: data, useToken: true);

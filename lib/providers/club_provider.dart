@@ -245,4 +245,10 @@ class ClubProvider extends ChangeNotifier {
     _filteredAthletes = _athletes;
     notifyListeners();
   }
+
+  void updateRecordCount(String id, int count) {
+    Atlet atlet = _filteredAthletes!.firstWhere((element) => element.id == id);
+    atlet.recordCount = count;
+    notifyListeners();
+  }
 }
